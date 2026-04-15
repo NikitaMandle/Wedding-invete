@@ -1,0 +1,400 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<title>Nikhil & Prachi — Wedding Invitation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- ══ LOADER ══ -->
+<div id="loader">
+  <canvas id="loader-canvas"></canvas>
+  <div class="loader-inner">
+    <div class="loader-ring-outer">
+      <div class="loader-ring-inner"></div>
+      <div class="loader-monogram">N <span>&amp;</span> P</div>
+    </div>
+    <p class="loader-tagline">Loading your invitation...</p>
+    <div class="loader-bar-wrap"><div class="loader-bar" id="loader-bar"></div></div>
+  </div>
+</div>
+
+<!-- ══ INVITATION ENTRY CARD (tap to open) ══ -->
+<div id="invite-entry" class="hidden">
+  <canvas id="entry-canvas"></canvas>
+  <div class="entry-petals" id="entry-petals"></div>
+  <div class="invite-card" id="invite-card">
+    <div class="ic-top-rose"></div>
+    <div class="ic-bottom-rose"></div>
+    <p class="ic-label">You are cordially invited</p>
+    <h1 class="ic-names">Nikhil<br/><span>&amp;</span><br/>Prachi</h1>
+    <div class="ic-date-row">
+      <span class="ic-line"></span>
+      <span class="ic-date">10 · 05 · 2026</span>
+      <span class="ic-line"></span>
+    </div>
+    <p class="ic-venue">Sweta Lawn, Nigdi, Pune</p>
+    <button class="ic-tap-btn" id="tap-open-btn">
+      <span class="ic-tap-icon">✉</span>
+      <span>Tap to Open</span>
+    </button>
+  </div>
+</div>
+
+<!-- ══ ENVELOPE ANIMATION ══ -->
+<div id="envelope-screen" class="hidden">
+  <canvas id="env-canvas"></canvas>
+  <div class="env-wrap" id="env-wrap">
+    <div class="env-body">
+      <div class="env-back"></div>
+      <div class="env-flap" id="env-flap"></div>
+      <div class="env-left"></div>
+      <div class="env-right"></div>
+      <div class="env-front"></div>
+      <div class="env-seal" id="env-seal">N&amp;P</div>
+    </div>
+    <div class="env-card-out" id="env-card-out">
+      <p class="eco-script">Nikhil &amp; Prachi</p>
+      <p class="eco-sub">Together Forever · 10 May 2026</p>
+    </div>
+  </div>
+  <div class="env-burst" id="env-burst"></div>
+  <div class="env-petals-wrap" id="env-petals-wrap"></div>
+</div>
+
+<!-- ══ MAIN SITE ══ -->
+<main id="main-site" class="hidden">
+
+  <!-- TOP NAV -->
+  <header class="top-nav" id="top-nav">
+    <div class="nav-logo">N <span>&amp;</span> P</div>
+    <button class="nav-hamburger" id="nav-hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-overlay" id="nav-overlay" onclick="closeMenu()"></div>
+    <nav class="nav-drawer" id="nav-drawer">
+      <button class="nav-close" onclick="closeMenu()">&#10005;</button>
+      <div class="nav-drawer-logo">N <span>&amp;</span> P</div>
+      <ul>
+        <li><a href="#hero" onclick="closeMenu()"><span>🏠</span>Home</a></li>
+        <li><a href="#countdown-section" onclick="closeMenu()"><span>⏳</span>Countdown</a></li>
+        <li><a href="#events" onclick="closeMenu()"><span>📅</span>Events</a></li>
+        <li><a href="#location" onclick="closeMenu()"><span>📍</span>Location</a></li>
+        <li><a href="#dresscode" onclick="closeMenu()"><span>👗</span>Dress Code</a></li>
+        <li><a href="#story" onclick="closeMenu()"><span>❤️</span>Our Story</a></li>
+        <li><a href="#gallery" onclick="closeMenu()"><span>🖼</span>Gallery</a></li>
+        <li><a href="#rsvp" onclick="closeMenu()"><span>✉</span>RSVP</a></li>
+        <li><a href="#wishes" onclick="closeMenu()"><span>💌</span>Wishes</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section id="hero" class="section hero-section">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-floral-tl"></div>
+    <div class="hero-floral-tr"></div>
+    <div class="hero-floral-bl"></div>
+    <div class="hero-floral-br"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Wedding Invitation</p>
+      <h1 class="hero-names">Nikhil<br/><span class="hero-amp">&amp;</span><br/>Prachi</h1>
+      <div class="hero-date-badge">
+        <span class="hero-line"></span>
+        <span class="hero-date-txt">10 · 05 · 2026</span>
+        <span class="hero-line"></span>
+      </div>
+      <p class="hero-venue">Sweta Lawn, Nigdi, Pune</p>
+      <div class="hero-orn"><span>✦</span><span class="orn-line"></span><span>✦</span></div>
+      <p class="hero-dear">Dear Friends &amp; Family!</p>
+      <p class="hero-body">We invite you to be part of our special day — a celebration filled with love, joy and beautiful memories.</p>
+      <a href="#events" class="hero-cta">View Events ↓</a>
+    </div>
+    <div class="hero-scroll-hint"><span class="scroll-dot"></span></div>
+  </section>
+
+  <!-- COUNTDOWN + CALENDAR -->
+  <section id="countdown-section" class="section cd-section reveal-section">
+    <div class="sf-left"></div><div class="sf-right"></div>
+    <p class="sec-eye">Counting Down To</p>
+    <h2 class="sec-head">10 May 2026</h2>
+    <div class="countdown-grid" id="countdown">
+      <div class="cd-item"><span class="cd-num" id="cd-days">00</span><span class="cd-lbl">Days</span></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-item"><span class="cd-num" id="cd-hours">00</span><span class="cd-lbl">Hours</span></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-item"><span class="cd-num" id="cd-mins">00</span><span class="cd-lbl">Mins</span></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-item"><span class="cd-num" id="cd-secs">00</span><span class="cd-lbl">Secs</span></div>
+    </div>
+    <div class="calendar-wrap fade-up">
+      <div class="cal-hdr"><span class="cal-month">May 2026</span></div>
+      <div class="cal-grid">
+        <div class="cal-dn">Su</div><div class="cal-dn">Mo</div><div class="cal-dn">Tu</div>
+        <div class="cal-dn">We</div><div class="cal-dn">Th</div><div class="cal-dn">Fr</div><div class="cal-dn">Sa</div>
+        <div class="cal-e"></div><div class="cal-e"></div><div class="cal-e"></div>
+        <div class="cal-e"></div><div class="cal-e"></div>
+        <div class="cal-d">1</div><div class="cal-d">2</div>
+        <div class="cal-d">3</div><div class="cal-d">4</div><div class="cal-d">5</div>
+        <div class="cal-d">6</div><div class="cal-d">7</div>
+        <div class="cal-d ev-day mehndi-day" title="Mehndi 4PM">8</div>
+        <div class="cal-d ev-day sangeet-day" title="Sangeet 7PM">9</div>
+        <div class="cal-d ev-day wedding-day" title="Wedding 11AM">10</div>
+        <div class="cal-d">11</div><div class="cal-d">12</div><div class="cal-d">13</div><div class="cal-d">14</div>
+        <div class="cal-d">15</div><div class="cal-d">16</div><div class="cal-d">17</div>
+        <div class="cal-d">18</div><div class="cal-d">19</div><div class="cal-d">20</div><div class="cal-d">21</div>
+        <div class="cal-d">22</div><div class="cal-d">23</div><div class="cal-d">24</div>
+        <div class="cal-d">25</div><div class="cal-d">26</div><div class="cal-d">27</div><div class="cal-d">28</div>
+        <div class="cal-d">29</div><div class="cal-d">30</div><div class="cal-d">31</div>
+        <div class="cal-e"></div><div class="cal-e"></div><div class="cal-e"></div><div class="cal-e"></div>
+      </div>
+      <div class="cal-legend">
+        <span class="cl-item"><span class="cl-dot mehndi-dot"></span>Mehndi</span>
+        <span class="cl-item"><span class="cl-dot sangeet-dot"></span>Sangeet</span>
+        <span class="cl-item"><span class="cl-dot wedding-dot"></span>Wedding &amp; Reception</span>
+      </div>
+      <a class="btn-primary" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Nikhil+%26+Prachi+Wedding&dates=20260510T110000/20260510T235900&location=Sweta+Lawn,+Nigdi,+Pune" target="_blank">&#128197; Add to Calendar</a>
+    </div>
+  </section>
+
+  <!-- EVENTS -->
+  <section id="events" class="section events-section reveal-section">
+    <div class="sf-left"></div><div class="sf-right"></div>
+    <p class="sec-eye">Programme</p>
+    <h2 class="sec-head">Timing</h2>
+    <div class="timing-cards">
+      <div class="tc fade-up" style="--d:0s">
+        <div class="tc-stripe mehndi-stripe"></div>
+        <div class="tc-date">08 May</div>
+        <div class="tc-icon mehndi-icon">🌿</div>
+        <div class="tc-info">
+          <h3>Mehndi Ceremony</h3>
+          <p class="tc-time">&#128336; 4:00 PM onwards</p>
+          <p class="tc-venue">&#128205; Sweta Lawn, Nigdi, Pune</p>
+          <span class="tc-dress">Yellow / Green Traditional</span>
+        </div>
+      </div>
+      <div class="tc fade-up" style="--d:0.12s">
+        <div class="tc-stripe sangeet-stripe"></div>
+        <div class="tc-date">09 May</div>
+        <div class="tc-icon sangeet-icon">🎶</div>
+        <div class="tc-info">
+          <h3>Sangeet Night</h3>
+          <p class="tc-time">&#128336; 7:00 PM onwards</p>
+          <p class="tc-venue">&#128205; Sweta Lawn, Nigdi, Pune</p>
+          <span class="tc-dress">Cocktail / Festive</span>
+        </div>
+      </div>
+      <div class="tc tc-featured fade-up" style="--d:0.24s">
+        <div class="tc-stripe wedding-stripe"></div>
+        <div class="tc-date">10 May</div>
+        <div class="tc-icon wedding-icon">💍</div>
+        <div class="tc-info">
+          <h3>Wedding Ceremony</h3>
+          <p class="tc-time">&#128336; 11:00 AM</p>
+          <p class="tc-venue">&#128205; Sweta Lawn, Nigdi, Pune</p>
+          <span class="tc-dress">Traditional / Formal</span>
+        </div>
+      </div>
+      <div class="tc fade-up" style="--d:0.36s">
+        <div class="tc-stripe reception-stripe"></div>
+        <div class="tc-date">10 May</div>
+        <div class="tc-icon reception-icon">🥂</div>
+        <div class="tc-info">
+          <h3>Wedding Reception</h3>
+          <p class="tc-time">&#128336; 7:00 PM onwards</p>
+          <p class="tc-venue">&#128205; Sweta Lawn, Nigdi, Pune</p>
+          <span class="tc-dress">Ethnic / Formal</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION -->
+  <section id="location" class="section loc-section reveal-section">
+    <div class="sf-left"></div><div class="sf-right"></div>
+    <p class="sec-eye">Venue</p>
+    <h2 class="sec-head">Location</h2>
+    <div class="loc-card fade-up">
+      <div class="loc-icon-big">&#127963;</div>
+      <h3>Sweta Lawn</h3>
+      <p class="loc-sub">Mata Amritanandamayi Math</p>
+      <p class="loc-addr">Nigdi, Pune – 411044, Maharashtra</p>
+    </div>
+    <div class="map-wrap fade-up">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3781.0!2d73.7700!3d18.6500!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2b9e4b7c3b1a1%3A0xabc!2sNigdi%2C+Pune%2C+Maharashtra+411044!5e0!3m2!1sen!2sin!4v1680000000000" width="100%" height="220" style="border:0;border-radius:16px;" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="loc-btns fade-up">
+      <a href="https://maps.google.com/?q=Mata+Amritanandamayi+Math+Nigdi+Pune" target="_blank" class="btn-primary">&#128205; Get Directions</a>
+      <a href="https://maps.google.com/?q=Mata+Amritanandamayi+Math+Nigdi+Pune" target="_blank" class="btn-outline">&#128506; Open in Maps</a>
+    </div>
+  </section>
+
+  <!-- DRESS CODE -->
+  <section id="dresscode" class="section dc-section reveal-section">
+    <div class="sf-right"></div>
+    <p class="sec-eye">Attire</p>
+    <h2 class="sec-head">Dress Code</h2>
+    <div class="dc-grid fade-up">
+      <div class="dc-card"><div class="dc-icon">🌿</div><h3>Mehndi</h3><p>Yellow / Green<br/>Traditional</p></div>
+      <div class="dc-card"><div class="dc-icon">🎶</div><h3>Sangeet</h3><p>Cocktail / Festive<br/>Colourful</p></div>
+      <div class="dc-card"><div class="dc-icon">💍</div><h3>Wedding</h3><p>Traditional<br/>Formal</p></div>
+      <div class="dc-card"><div class="dc-icon">🥂</div><h3>Reception</h3><p>Ethnic / Formal<br/>Elegant</p></div>
+    </div>
+    <p class="dc-note fade-up">We would be grateful if you dressed in the spirit of the occasion.</p>
+  </section>
+
+  <!-- OUR STORY -->
+  <section id="story" class="section story-section reveal-section">
+    <div class="sf-left"></div>
+    <p class="sec-eye">Our Journey</p>
+    <h2 class="sec-head">Our Story</h2>
+    <div class="story-tl">
+      <div class="st-item fade-up">
+        <div class="st-dot">&#128171;</div>
+        <div class="st-card"><span class="st-yr">2021</span><h3>Our Journey Begins</h3><p>Built a relationship filled with shared memories, laughter, and beautiful dreams together.</p></div>
+      </div>
+      <div class="st-item fade-up">
+        <div class="st-dot">&#128140;</div>
+        <div class="st-card"><span class="st-yr">2023</span><h3>The Proposal</h3><p>Nikhil proposed and Prachi said yes — the beginning of their forever together.</p></div>
+      </div>
+      <div class="st-item fade-up">
+        <div class="st-dot">&#128141;</div>
+        <div class="st-card"><span class="st-yr">2026</span><h3>Forever Begins</h3><p>Join us on 10 May 2026 as we celebrate our love and begin our forever.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery" class="section gallery-section reveal-section">
+    <div class="sf-right"></div>
+    <p class="sec-eye">Memories</p>
+    <h2 class="sec-head">Gallery</h2>
+    <div class="g-tabs fade-up">
+      <button class="gtab active" data-cat="all">All</button>
+      <button class="gtab" data-cat="pre">Pre-Wedding</button>
+      <button class="gtab" data-cat="events">Events</button>
+    </div>
+    <div class="g-grid" id="g-grid">
+      <div class="g-item g-large" data-cat="pre"><div class="gp gp1"><span>Pre-Wedding</span></div></div>
+      <div class="g-item" data-cat="pre"><div class="gp gp2"><span>Together</span></div></div>
+      <div class="g-item" data-cat="events"><div class="gp gp3"><span>Engagement</span></div></div>
+      <div class="g-item" data-cat="pre"><div class="gp gp4"><span>Moments</span></div></div>
+      <div class="g-item" data-cat="events"><div class="gp gp5"><span>Celebration</span></div></div>
+      <div class="g-item" data-cat="events"><div class="gp gp6"><span>Joy</span></div></div>
+    </div>
+    <p class="g-note fade-up">&#128247; Photos coming soon — stay tuned!</p>
+    <div id="lightbox" class="lightbox hidden">
+      <div class="lb-ov" onclick="closeLightbox()"></div>
+      <div class="lb-box">
+        <button class="lb-close" onclick="closeLightbox()">&#10005;</button>
+        <button class="lb-prev" onclick="lbPrev()">&#8249;</button>
+        <div class="lb-img" id="lb-img"></div>
+        <button class="lb-next" onclick="lbNext()">&#8250;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RSVP -->
+  <section id="rsvp" class="section rsvp-section reveal-section">
+    <div class="sf-left"></div><div class="sf-right"></div>
+    <p class="sec-eye">Guest Form</p>
+    <h2 class="sec-head">RSVP</h2>
+    <div class="rsvp-date fade-up"><p class="rd-big">10.05.2026</p><p class="rt-big">11:00 AM</p></div>
+    <p class="rsvp-desc fade-up">We will be happy to see you among our closest guests!</p>
+    <form class="rsvp-form fade-up" id="rsvp-form" onsubmit="submitRSVP(event)">
+      <div class="rf"><span class="rfi">&#128100;</span><input type="text" placeholder="Your Full Name" required/></div>
+      <div class="rf"><span class="rfi">&#128222;</span><input type="tel" placeholder="Phone Number"/></div>
+      <div class="rf"><span class="rfi">&#10003;</span><select required><option value="">Will you attend?</option><option>Yes, I will be there! &#127881;</option><option>Sorry, I cannot make it</option><option>Maybe</option></select></div>
+      <div class="rf"><span class="rfi">&#128197;</span><select><option value="">Select Event</option><option>Mehndi — 8 May</option><option>Sangeet — 9 May</option><option>Wedding — 10 May</option><option>Reception — 10 May</option><option>All Events</option></select></div>
+      <div class="rf"><span class="rfi">&#128101;</span><input type="number" placeholder="Number of Guests" min="1" max="10"/></div>
+      <div class="rf rf-ta"><textarea placeholder="Your warm wishes..." rows="3"></textarea></div>
+      <button type="submit" class="btn-primary">Confirm Attendance &#128140;</button>
+    </form>
+    <div id="rsvp-ok" class="rsvp-ok hidden"><div>&#127882;</div><h3>Thank You!</h3><p>We can't wait to celebrate with you on 10 May 2026!</p></div>
+  </section>
+
+  <!-- WISHES -->
+  <section id="wishes" class="section wishes-section reveal-section">
+    <div class="sf-left"></div>
+    <p class="sec-eye">Blessings</p>
+    <h2 class="sec-head">Wishes</h2>
+    <div class="wishes-list" id="wishes-list">
+      <div class="wc fade-up"><div class="wq">&#10077;</div><p class="wt">Wishing Nikhil &amp; Prachi a lifetime of love, laughter and happiness!</p><p class="wa">— Rahul &amp; Sneha</p></div>
+      <div class="wc fade-up"><div class="wq">&#10077;</div><p class="wt">Two hearts, one soul. Congratulations on your beautiful journey together!</p><p class="wa">— Aai &amp; Baba</p></div>
+    </div>
+    <button class="btn-outline wish-add-btn fade-up" onclick="toggleWishForm()">&#9998; Write a Wish</button>
+    <div id="wish-form" class="wish-form hidden">
+      <input type="text" id="wn" placeholder="Your name"/>
+      <textarea id="wm" placeholder="Your heartfelt message..." rows="3"></textarea>
+      <button class="btn-primary" onclick="addWish()">Send Wish &#128140;</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer reveal-section">
+    <div class="ft-fl-tl"></div><div class="ft-fl-br"></div>
+    <div class="ft-inner">
+      <h2 class="ft-names">Nikhil &amp; Prachi</h2>
+      <p class="ft-date">10 · 05 · 2026</p>
+      <div class="ft-div"><span>✦</span><span class="ft-line"></span><span>✦</span></div>
+      <p class="ft-msg">Thank you for being part of our special day.<br/>With love &amp; gratitude &#128591;</p>
+      <div class="ft-actions">
+        <button class="fsoc" onclick="shareInvite()">&#128228; Share</button>
+        <a class="fsoc" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Nikhil+%26+Prachi+Wedding&dates=20260510T110000/20260510T235900&location=Sweta+Lawn,+Nigdi,+Pune" target="_blank">&#128197; Calendar</a>
+      </div>
+      <p class="ft-credit">Made with &#10084;&#65039; for Nikhil &amp; Prachi · 2026</p>
+      <p class="ft-dev">made by roshan mandale</p>
+    </div>
+  </footer>
+
+</main>
+
+<!-- CHATBOT -->
+<div class="chatbot-wrap" id="chatbot-wrap">
+  <button class="chat-toggle" id="chat-toggle" onclick="toggleChat()">
+    <span id="chat-toggle-icon">&#128172;</span>
+    <span id="chat-toggle-label">Ask Us</span>
+  </button>
+  <div class="chat-win" id="chat-win">
+    <div class="chat-hdr">
+      <div class="chat-hdr-left">
+        <div class="chat-av">N&amp;P</div>
+        <div><p class="chat-name">Wedding Assistant</p><p class="chat-online">&#128994; Online</p></div>
+      </div>
+      <button class="chat-x" onclick="toggleChat()">&#10005;</button>
+    </div>
+    <div class="chat-msgs" id="chat-msgs">
+      <div class="cm bot"><div class="cb">Hi! &#128522; I'm your wedding assistant for Nikhil &amp; Prachi's wedding on 10 May 2026. Ask me anything about events, venue, dress code, or RSVP!</div></div>
+    </div>
+    <div class="chat-quick" id="chat-quick">
+      <button onclick="sendQ('What are the wedding events?')">Events</button>
+      <button onclick="sendQ('Where is the venue?')">Venue</button>
+      <button onclick="sendQ('What is the dress code?')">Dress Code</button>
+      <button onclick="sendQ('How do I RSVP?')">RSVP</button>
+    </div>
+    <div class="chat-inp-row">
+      <input type="text" id="chat-inp" placeholder="Ask about the wedding..." onkeydown="if(event.key==='Enter')sendMsg()"/>
+      <button class="chat-send" onclick="sendMsg()">&#10148;</button>
+    </div>
+  </div>
+</div>
+
+<!-- FAB -->
+<div class="fab-wrap">
+  <button class="fab-btn" id="music-btn" onclick="toggleMusic()" title="Music">&#127925;</button>
+  <button class="fab-btn fab-top" onclick="scrollToTop()" title="Top">&#8679;</button>
+</div>
+
+<audio id="bg-music" loop preload="auto">
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"/>
+</audio>
+
+<script src="script.js"></script>
+</body>
+</html>
