@@ -142,6 +142,7 @@
         <a href="#s-gallery" onclick="closeNav()"><span class="np-num">07</span><span>Gallery</span></a>
         <a href="#s-rsvp" onclick="closeNav()"><span class="np-num">08</span><span>RSVP</span></a>
         <a href="#s-wishes" onclick="closeNav()"><span class="np-num">09</span><span>Wishes</span></a>
+        <a href="#s-quiz" onclick="closeNav()"><span class="np-num">10</span><span>Quiz 🎯</span></a>
       </nav>
       <div class="np-footer">
         <p>10 · 05 · 2026 &nbsp;·&nbsp; Sweta Lawn, Pune</p>
@@ -155,7 +156,7 @@
     <div class="hero-rose-tl"></div><div class="hero-rose-tr"></div>
     <div class="hero-rose-bl"></div><div class="hero-rose-br"></div>
     <div class="hero-body">
-      <p class="hero-tag anim-fade-up" style="--d:.1s">You are cordially invited</p>
+      <p class="hero-tag anim-fade-up" style="--d:.1s" id="welcomeText">You are cordially invited</p>
       <h1 class="hero-names">
         <span class="hn-nikhil anim-fade-up" style="--d:.25s">Nikhil</span>
         <span class="hn-amp anim-fade-up" style="--d:.4s">&amp;</span>
@@ -233,27 +234,52 @@
       </button>
     </div>
 
-    <!-- GROOM TIMELINE -->
+    <!-- GROOM TIMELINE — Real Events -->
     <div class="oe-timeline" id="timeline-groom">
-      <div class="oe-row oe-row-left" onclick="openEventModal('g_haldi')">
-        <div class="oe-left-side"><p class="oe-ev-time">08 May · 10:00 AM</p><h3 class="oe-ev-name">Haldi Ceremony</h3></div>
-        <div class="oe-center-col"><div class="oe-icon-circle haldi-ic">🌼</div><div class="oe-v-line"></div></div>
+      <div class="oe-row oe-row-left" onclick="openEventModal('g_gondhal')">
+        <div class="oe-left-side"><p class="oe-ev-time">05 May · Amravati</p><h3 class="oe-ev-name">Gondhal Ceremony</h3></div>
+        <div class="oe-center-col"><div class="oe-icon-circle" style="background:radial-gradient(circle at 35% 35%,rgba(255,165,0,0.35),#080101 70%)">🪔</div><div class="oe-v-line"></div></div>
         <div class="oe-right-side oe-right-empty"></div>
       </div>
-      <div class="oe-row oe-row-right" onclick="openEventModal('g_baraat')">
+      <div class="oe-row oe-row-right" onclick="openEventModal('g_mehendi')">
         <div class="oe-left-side oe-left-empty"></div>
-        <div class="oe-center-col"><div class="oe-v-line"></div><div class="oe-icon-circle baraat-ic">🐴</div><div class="oe-v-line"></div></div>
-        <div class="oe-right-side"><p class="oe-ev-time">10 May · 9:00 AM</p><h3 class="oe-ev-name">Baraat Procession</h3></div>
+        <div class="oe-center-col"><div class="oe-v-line"></div><div class="oe-icon-circle mehndi-ic">🌿</div><div class="oe-v-line"></div></div>
+        <div class="oe-right-side"><p class="oe-ev-time">06 May · Amravati</p><h3 class="oe-ev-name">Mehendi Ceremony</h3></div>
       </div>
-      <div class="oe-row oe-row-left oe-row-featured" onclick="openEventModal('g_wedding')">
-        <div class="oe-left-side"><p class="oe-ev-time">10 May · 11:00 AM</p><h3 class="oe-ev-name oe-ev-gold">Wedding Ceremony</h3></div>
+      <div class="oe-row oe-row-left" onclick="openEventModal('g_haldi')">
+        <div class="oe-left-side"><p class="oe-ev-time">07 May · Amravati</p><h3 class="oe-ev-name">Haldi &amp; Devkundi</h3></div>
+        <div class="oe-center-col"><div class="oe-v-line"></div><div class="oe-icon-circle haldi-ic">🌼</div><div class="oe-v-line"></div></div>
+        <div class="oe-right-side oe-right-empty"></div>
+      </div>
+      <div class="oe-row oe-row-right" onclick="openEventModal('g_travel')">
+        <div class="oe-left-side oe-left-empty"></div>
+        <div class="oe-center-col"><div class="oe-v-line"></div><div class="oe-icon-circle" style="background:radial-gradient(circle at 35% 35%,rgba(100,149,237,0.35),#080101 70%)">🚂</div><div class="oe-v-line"></div></div>
+        <div class="oe-right-side"><p class="oe-ev-time">08 May · Travel</p><h3 class="oe-ev-name">Departure to Pune</h3></div>
+      </div>
+      <div class="oe-row oe-row-left" onclick="openEventModal('g_arrival')">
+        <div class="oe-left-side"><p class="oe-ev-time">09 May · Pune</p><h3 class="oe-ev-name">Arrival &amp; Preparations</h3></div>
+        <div class="oe-center-col"><div class="oe-v-line"></div><div class="oe-icon-circle" style="background:radial-gradient(circle at 35% 35%,rgba(144,238,144,0.35),#080101 70%)">🏡</div><div class="oe-v-line"></div></div>
+        <div class="oe-right-side oe-right-empty"></div>
+      </div>
+      <div class="oe-row oe-row-right oe-row-featured" onclick="openEventModal('g_wedding')">
+        <div class="oe-left-side oe-left-empty"></div>
         <div class="oe-center-col"><div class="oe-v-line"></div><div class="oe-icon-circle wedding-ic">💍</div><div class="oe-v-line"></div></div>
+        <div class="oe-right-side"><p class="oe-ev-time">10 May · Pune</p><h3 class="oe-ev-name oe-ev-gold">Wedding Ceremony 💍</h3></div>
+      </div>
+      <div class="oe-row oe-row-left" onclick="openEventModal('g_return')">
+        <div class="oe-left-side"><p class="oe-ev-time">11 May · Amravati</p><h3 class="oe-ev-name">Return to Hometown</h3></div>
+        <div class="oe-center-col"><div class="oe-v-line"></div><div class="oe-icon-circle" style="background:radial-gradient(circle at 35% 35%,rgba(255,182,193,0.35),#080101 70%)">🏠</div><div class="oe-v-line"></div></div>
         <div class="oe-right-side oe-right-empty"></div>
       </div>
       <div class="oe-row oe-row-right" onclick="openEventModal('g_reception')">
         <div class="oe-left-side oe-left-empty"></div>
-        <div class="oe-center-col"><div class="oe-v-line"></div><div class="oe-icon-circle reception-ic">🥂</div></div>
-        <div class="oe-right-side"><p class="oe-ev-time">10 May · 7:00 PM</p><h3 class="oe-ev-name">Wedding Reception</h3></div>
+        <div class="oe-center-col"><div class="oe-v-line"></div><div class="oe-icon-circle reception-ic">🥂</div><div class="oe-v-line"></div></div>
+        <div class="oe-right-side"><p class="oe-ev-time">12 May · Amravati</p><h3 class="oe-ev-name">Reception &amp; Satyanarayan</h3></div>
+      </div>
+      <div class="oe-row oe-row-left" onclick="openEventModal('g_pune2')">
+        <div class="oe-left-side"><p class="oe-ev-time">13–14 May · Pune</p><h3 class="oe-ev-name">Satyanarayan Pooja</h3></div>
+        <div class="oe-center-col"><div class="oe-v-line"></div><div class="oe-icon-circle" style="background:radial-gradient(circle at 35% 35%,rgba(255,215,0,0.35),#080101 70%)">🙏</div></div>
+        <div class="oe-right-side oe-right-empty"></div>
       </div>
     </div>
 
@@ -517,6 +543,32 @@
       <button class="btn-p" onclick="addWish()">Send Wish 💌</button>
     </div>
   </section>
+
+  <!-- FOOTER -->
+  <!-- QUIZ SECTION -->
+  <section id="s-quiz" class="s quiz-s reveal">
+    <div class="sf-r"></div>
+    <div class="s-label">Fun &amp; Games</div>
+    <h2 class="s-title">Wedding Quiz</h2>
+    <p class="quiz-sub reveal-child">How well do you know Nikhil &amp; Prachi? 🎯</p>
+    <div id="quiz-wrap" class="quiz-wrap reveal-child">
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-progress"></div></div>
+      <p class="quiz-q-num" id="quiz-qnum">Question 1 of 5</p>
+      <div class="quiz-card" id="quiz-card">
+        <p class="quiz-question" id="quiz-question"></p>
+        <div class="quiz-options" id="quiz-options"></div>
+      </div>
+    </div>
+    <div id="quiz-result" class="quiz-result hidden">
+      <div class="qr-icon" id="qr-icon"></div>
+      <h3 class="qr-score" id="qr-score"></h3>
+      <p class="qr-msg" id="qr-msg"></p>
+      <button class="btn-p" onclick="restartQuiz()" style="margin-top:20px">Play Again 🔄</button>
+    </div>
+  </section>
+
+  <!-- CONFETTI CANVAS (hidden, triggered on RSVP) -->
+  <canvas id="confetti-canvas" style="position:fixed;inset:0;pointer-events:none;z-index:9000;display:none;"></canvas>
 
   <!-- FOOTER -->
   <footer class="footer reveal">

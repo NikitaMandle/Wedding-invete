@@ -147,24 +147,45 @@ document.addEventListener('DOMContentLoaded', function(){
   window.lbN     = function(){ lbI=(lbI+1)%lbBg.length; showLb(); };
   window.openLb  = openLb;
 
-  // ── EVENT MODAL ──
-  const VENUE='Sweta Lawn, Mata Amritanandamayi Math, Nigdi, Pune – 411044';
-  const MURL='https://maps.google.com/?q=Mata+Amritanandamayi+Math+Nigdi+Pune';
-  const MSRC='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3781.0!2d73.7700!3d18.6500!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2b9e4b7c3b1a1%3A0xabc!2sNigdi%2C+Pune!5e0!3m2!1sen!2sin!4v1680000000000';
+  // ── GUEST PERSONALIZATION ──
+  // Usage: https://yoursite.com/?guest=Rahul+Sharma
+  (function(){
+    try{
+      const p=new URLSearchParams(window.location.search);
+      const raw=p.get('guest');
+      const wt=el('welcomeText');
+      if(wt && raw && raw.trim()){
+        const name=decodeURIComponent(raw.trim()).replace(/\+/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
+        wt.textContent='Welcome '+name+' \uD83C\uDF89';
+      }
+    }catch(e){}
+  })();
 
-  // All event data — Groom (g_) and Bride (b_) prefixed
+  // ── EVENT MODAL ──
+  const AMRAVATI_ADDR='Rajapeth Chatrapati Sahu Nagar, Near Shitla Mata Mandir, Amravati – 444607';
+  const AMRAVATI_MAP='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.0!2d77.7523!3d20.9374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd6a9e4b7c3b1a1%3A0xabc!2sRajapeth%2C+Amravati!5e0!3m2!1sen!2sin!4v1680000000000';
+  const AMRAVATI_URL='https://maps.google.com/?q=Rajapeth+Chatrapati+Sahu+Nagar+Amravati';
+  const PUNE_VENUE='Sweta Lawn, Mata Amritanandamayi Math, Nigdi, Pune – 411044';
+  const PUNE_MAP='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3781.0!2d73.7700!3d18.6500!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2b9e4b7c3b1a1%3A0xabc!2sNigdi%2C+Pune!5e0!3m2!1sen!2sin!4v1680000000000';
+  const PUNE_URL='https://maps.google.com/?q=Mata+Amritanandamayi+Math+Nigdi+Pune';
+
   const EVDATA={
-    // GROOM EVENTS
-    g_haldi:   {icon:'🌼',title:'Haldi Ceremony (Groom)',    date:'8 May 2026', time:'10:00 AM',        venue:VENUE,dress:'Yellow / White Traditional',  mapSrc:MSRC,mapUrl:MURL,calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Haldi+Ceremony&dates=20260508T100000/20260508T130000&location=Sweta+Lawn,+Nigdi,+Pune'},
-    g_baraat:  {icon:'🐴',title:'Baraat Procession',         date:'10 May 2026',time:'9:00 AM',         venue:VENUE,dress:'Sherwani / Traditional',       mapSrc:MSRC,mapUrl:MURL,calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Baraat+Procession&dates=20260510T090000/20260510T110000&location=Sweta+Lawn,+Nigdi,+Pune'},
-    g_wedding: {icon:'💍',title:'Wedding Ceremony',          date:'10 May 2026',time:'11:00 AM',        venue:VENUE,dress:'Sherwani / Formal',            mapSrc:MSRC,mapUrl:MURL,calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding+Ceremony&dates=20260510T110000/20260510T140000&location=Sweta+Lawn,+Nigdi,+Pune'},
-    g_reception:{icon:'🥂',title:'Wedding Reception',        date:'10 May 2026',time:'7:00 PM onwards', venue:VENUE,dress:'Ethnic / Formal Elegant',      mapSrc:MSRC,mapUrl:MURL,calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding+Reception&dates=20260510T190000/20260510T235900&location=Sweta+Lawn,+Nigdi,+Pune'},
+    // GROOM EVENTS (real data)
+    g_gondhal:  {icon:'🪔',title:'Gondhal Ceremony',       date:'5 May 2026', time:'Evening',         venue:"Nikhil's Home, "+AMRAVATI_ADDR, dress:'Traditional Attire',        mapSrc:AMRAVATI_MAP,mapUrl:AMRAVATI_URL,calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Gondhal+Ceremony&dates=20260505T180000/20260505T220000&location=Rajapeth,+Amravati'},
+    g_mehendi:  {icon:'🌿',title:'Mehendi Ceremony',       date:'6 May 2026', time:'Afternoon',        venue:"Nikhil's Home, "+AMRAVATI_ADDR, dress:'Casual / Traditional',       mapSrc:AMRAVATI_MAP,mapUrl:AMRAVATI_URL,calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mehendi+Ceremony&dates=20260506T140000/20260506T200000&location=Rajapeth,+Amravati'},
+    g_haldi:    {icon:'🌼',title:'Haldi & Devkundi',       date:'7 May 2026', time:'Morning',          venue:"Nikhil's Home, "+AMRAVATI_ADDR, dress:'Yellow / White Traditional', mapSrc:AMRAVATI_MAP,mapUrl:AMRAVATI_URL,calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Haldi+%26+Devkundi&dates=20260507T090000/20260507T140000&location=Rajapeth,+Amravati'},
+    g_travel:   {icon:'�',title:'Departure to Pune',      date:'8 May 2026', time:'Morning',          venue:'Amravati → Pune',               dress:'Comfortable Travel Wear',    mapSrc:AMRAVATI_MAP,mapUrl:AMRAVATI_URL,calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Travel+to+Pune&dates=20260508T080000/20260508T200000'},
+    g_arrival:  {icon:'🏡',title:'Arrival & Preparations', date:'9 May 2026', time:'All Day',          venue:PUNE_VENUE,                      dress:'Comfortable',                mapSrc:PUNE_MAP,    mapUrl:PUNE_URL,    calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Arrival+in+Pune&dates=20260509T100000/20260509T200000&location=Nigdi,+Pune'},
+    g_wedding:  {icon:'💍',title:'Wedding Ceremony 💍',    date:'10 May 2026',time:'11:00 AM',         venue:PUNE_VENUE,                      dress:'Sherwani / Formal',          mapSrc:PUNE_MAP,    mapUrl:PUNE_URL,    calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Nikhil+%26+Prachi+Wedding&dates=20260510T110000/20260510T180000&location=Sweta+Lawn,+Nigdi,+Pune'},
+    g_return:   {icon:'🏠',title:'Return to Amravati',     date:'11 May 2026',time:'Morning',          venue:'Pune → Amravati',               dress:'Comfortable',                mapSrc:PUNE_MAP,    mapUrl:PUNE_URL,    calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Return+to+Amravati&dates=20260511T080000/20260511T200000'},
+    g_reception:{icon:'🥂',title:'Reception & Satyanarayan',date:'12 May 2026',time:'Evening',         venue:"Nikhil's Home, "+AMRAVATI_ADDR, dress:'Ethnic / Formal Elegant',    mapSrc:AMRAVATI_MAP,mapUrl:AMRAVATI_URL,calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Reception+%26+Satyanarayan&dates=20260512T170000/20260512T235900&location=Rajapeth,+Amravati'},
+    g_pune2:    {icon:'🙏',title:'Satyanarayan Pooja',     date:'14 May 2026',time:'Morning',          venue:PUNE_VENUE,                      dress:'Traditional',                mapSrc:PUNE_MAP,    mapUrl:PUNE_URL,    calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Satyanarayan+Pooja&dates=20260514T100000/20260514T140000&location=Nigdi,+Pune'},
     // BRIDE EVENTS
-    b_mehndi:  {icon:'🌿',title:'Mehndi Ceremony (Bride)',   date:'8 May 2026', time:'4:00 PM onwards', venue:VENUE,dress:'Yellow / Green Traditional',   mapSrc:MSRC,mapUrl:MURL,calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mehndi+Ceremony&dates=20260508T160000/20260508T210000&location=Sweta+Lawn,+Nigdi,+Pune'},
-    b_sangeet: {icon:'🎶',title:'Sangeet Night',             date:'9 May 2026', time:'7:00 PM onwards', venue:VENUE,dress:'Cocktail / Festive Colourful',  mapSrc:MSRC,mapUrl:MURL,calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sangeet+Night&dates=20260509T190000/20260509T235900&location=Sweta+Lawn,+Nigdi,+Pune'},
-    b_haldi:   {icon:'🌼',title:'Haldi Ceremony (Bride)',    date:'9 May 2026', time:'11:00 AM',        venue:VENUE,dress:'Yellow / Floral Traditional',  mapSrc:MSRC,mapUrl:MURL,calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Haldi+Ceremony&dates=20260509T110000/20260509T140000&location=Sweta+Lawn,+Nigdi,+Pune'},
-    b_wedding: {icon:'💍',title:'Wedding Ceremony',          date:'10 May 2026',time:'11:00 AM',        venue:VENUE,dress:'Bridal Lehenga / Traditional', mapSrc:MSRC,mapUrl:MURL,calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding+Ceremony&dates=20260510T110000/20260510T140000&location=Sweta+Lawn,+Nigdi,+Pune'},
-    b_vidaai:  {icon:'🌸',title:'Vidaai',                   date:'10 May 2026',time:'2:00 PM',         venue:VENUE,dress:'Bridal Attire',                mapSrc:MSRC,mapUrl:MURL,calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Vidaai&dates=20260510T140000/20260510T160000&location=Sweta+Lawn,+Nigdi,+Pune'},
+    b_mehndi:   {icon:'🌿',title:'Mehndi Ceremony',        date:'8 May 2026', time:'4:00 PM onwards',  venue:PUNE_VENUE,                      dress:'Yellow / Green Traditional', mapSrc:PUNE_MAP,    mapUrl:PUNE_URL,    calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mehndi+Ceremony&dates=20260508T160000/20260508T210000&location=Sweta+Lawn,+Nigdi,+Pune'},
+    b_sangeet:  {icon:'🎶',title:'Sangeet Night',          date:'9 May 2026', time:'7:00 PM onwards',  venue:PUNE_VENUE,                      dress:'Cocktail / Festive Colourful',mapSrc:PUNE_MAP,   mapUrl:PUNE_URL,    calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sangeet+Night&dates=20260509T190000/20260509T235900&location=Sweta+Lawn,+Nigdi,+Pune'},
+    b_haldi:    {icon:'🌼',title:'Haldi Ceremony',         date:'9 May 2026', time:'11:00 AM',         venue:PUNE_VENUE,                      dress:'Yellow / Floral Traditional', mapSrc:PUNE_MAP,   mapUrl:PUNE_URL,    calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Haldi+Ceremony&dates=20260509T110000/20260509T140000&location=Sweta+Lawn,+Nigdi,+Pune'},
+    b_wedding:  {icon:'💍',title:'Wedding Ceremony 💍',    date:'10 May 2026',time:'11:00 AM',         venue:PUNE_VENUE,                      dress:'Bridal Lehenga / Traditional',mapSrc:PUNE_MAP,   mapUrl:PUNE_URL,    calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding+Ceremony&dates=20260510T110000/20260510T140000&location=Sweta+Lawn,+Nigdi,+Pune'},
+    b_vidaai:   {icon:'🌸',title:'Vidaai',                 date:'10 May 2026',time:'2:00 PM',          venue:PUNE_VENUE,                      dress:'Bridal Attire',               mapSrc:PUNE_MAP,   mapUrl:PUNE_URL,    calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Vidaai&dates=20260510T140000/20260510T160000&location=Sweta+Lawn,+Nigdi,+Pune'},
   };
 
   window.openEventModal = function(key){
@@ -390,6 +411,7 @@ sunset enjoy करत होतो… पाण्यात खेळत हो
   window.doRSVP = function(e){
     e.preventDefault();
     safe(()=>{ el('rf').classList.add('hidden'); el('rsvp-ok').classList.remove('hidden'); });
+    triggerConfetti();
   };
 
   // ── WISHES ──
@@ -437,6 +459,93 @@ sunset enjoy करत होतो… पाण्यात खेळत हो
   if(waBtn){
     const msg=encodeURIComponent("You're invited to Nikhil & Prachi's Wedding! 💍\n📅 10 May 2026 | Sweta Lawn, Nigdi, Pune\n\nOpen invitation → "+window.location.href);
     waBtn.href='https://wa.me/?text='+msg;
+  }
+
+  // ── WEDDING QUIZ ──
+  const QUIZ=[
+    {q:'Where did Nikhil and Prachi first meet?',opts:['College EDC Lab','Coffee Shop','Friend\'s Party','Online'],ans:0},
+    {q:'What caused the "spark" in their first meeting?',opts:['Love at first sight','Circuit short circuit 💥','A joke','Music'],ans:1},
+    {q:'Where did Nikhil take Prachi on their first trip?',opts:['Goa','Chichaati','Mumbai','Lonavala'],ans:1},
+    {q:'What was the famous "5:45" twist?',opts:['Train time','Her last bus time','Sunset time','Dinner reservation'],ans:1},
+    {q:'When is the wedding?',opts:['10 April 2026','10 May 2026','10 June 2026','10 July 2026'],ans:1}
+  ];
+  let qIdx=0,score=0;
+  function startQuiz(){
+    qIdx=0;score=0;
+    el('quiz-wrap').classList.remove('hidden');
+    el('quiz-result').classList.add('hidden');
+    showQ();
+  }
+  function showQ(){
+    const q=QUIZ[qIdx];
+    el('quiz-qnum').textContent='Question '+(qIdx+1)+' of '+QUIZ.length;
+    el('quiz-question').textContent=q.q;
+    el('quiz-progress').style.width=((qIdx+1)/QUIZ.length*100)+'%';
+    const opts=el('quiz-options');
+    opts.innerHTML='';
+    q.opts.forEach((opt,i)=>{
+      const btn=document.createElement('button');
+      btn.className='quiz-opt';
+      btn.textContent=opt;
+      btn.onclick=()=>answerQ(i);
+      opts.appendChild(btn);
+    });
+  }
+  function answerQ(i){
+    const q=QUIZ[qIdx];
+    const opts=document.querySelectorAll('.quiz-opt');
+    opts.forEach((o,idx)=>{
+      o.classList.add('disabled');
+      if(idx===q.ans) o.classList.add('correct');
+      else if(idx===i) o.classList.add('wrong');
+    });
+    if(i===q.ans) score++;
+    setTimeout(()=>{
+      qIdx++;
+      if(qIdx<QUIZ.length) showQ();
+      else showResult();
+    },1200);
+  }
+  function showResult(){
+    el('quiz-wrap').classList.add('hidden');
+    const res=el('quiz-result');
+    res.classList.remove('hidden');
+    const pct=Math.round(score/QUIZ.length*100);
+    if(pct===100){ el('qr-icon').textContent='🏆'; el('qr-score').textContent='Perfect Score!'; el('qr-msg').textContent='You know Nikhil & Prachi better than they know themselves! 😄'; }
+    else if(pct>=60){ el('qr-icon').textContent='🎉'; el('qr-score').textContent=score+' / '+QUIZ.length; el('qr-msg').textContent='Great job! You know them well! 👏'; }
+    else{ el('qr-icon').textContent='😅'; el('qr-score').textContent=score+' / '+QUIZ.length; el('qr-msg').textContent='Not bad! But you should spend more time with them! 😄'; }
+    triggerConfetti();
+  }
+  window.restartQuiz=startQuiz;
+  startQuiz();
+
+  // ── CONFETTI ──
+  function triggerConfetti(){
+    const cv=el('confetti-canvas'); if(!cv)return;
+    cv.style.display='block';
+    cv.width=window.innerWidth; cv.height=window.innerHeight;
+    const ctx=cv.getContext('2d');
+    const pieces=Array.from({length:80},()=>({
+      x:Math.random()*cv.width,y:-20,
+      vx:(Math.random()-.5)*3,vy:Math.random()*3+2,
+      r:Math.random()*4+2,
+      c:['#C9A84C','#E8C97A','#C41E3A','#8B1A2A'][Math.floor(Math.random()*4)],
+      rot:Math.random()*360,rotV:Math.random()*10-5
+    }));
+    let frame=0;
+    function draw(){
+      ctx.clearRect(0,0,cv.width,cv.height);
+      pieces.forEach(p=>{
+        p.y+=p.vy; p.x+=p.vx; p.rot+=p.rotV;
+        ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180);
+        ctx.fillStyle=p.c; ctx.fillRect(-p.r/2,-p.r/2,p.r,p.r);
+        ctx.restore();
+      });
+      frame++;
+      if(frame<180) requestAnimationFrame(draw);
+      else cv.style.display='none';
+    }
+    draw();
   }
 
   // ── START ──

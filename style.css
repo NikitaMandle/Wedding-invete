@@ -700,3 +700,28 @@ button{font-family:'Poppins',sans-serif;cursor:pointer;border:none;outline:none}
   color:#25d366!important;
 }
 .ft-btn-wa:hover{background:linear-gradient(135deg,#128c7e,#25d366)!important;color:#fff!important}
+
+/* QUIZ SECTION */
+.quiz-s{background:linear-gradient(180deg,#0a0202,#110303);text-align:center}
+.quiz-sub{font-size:0.78rem;color:var(--dim);margin-bottom:24px;position:relative;z-index:1}
+.quiz-wrap{position:relative;z-index:1}
+.quiz-progress-bar{height:3px;background:rgba(201,168,76,0.12);border-radius:2px;margin-bottom:16px;overflow:hidden}
+.quiz-progress-fill{height:100%;background:linear-gradient(90deg,var(--maroon),var(--gold));border-radius:2px;transition:width 0.5s ease;width:0%}
+.quiz-q-num{font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:3px;color:var(--gold);margin-bottom:16px;text-transform:uppercase}
+.quiz-card{background:rgba(255,255,255,0.025);border:1px solid var(--bdr);border-radius:20px;padding:24px 20px;margin-bottom:4px}
+.quiz-question{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--cream);font-weight:600;line-height:1.5;margin-bottom:20px}
+.quiz-options{display:flex;flex-direction:column;gap:10px}
+.quiz-opt{
+  background:rgba(255,255,255,0.03);border:1px solid rgba(201,168,76,0.18);
+  border-radius:12px;padding:13px 18px;text-align:left;
+  font-size:0.82rem;color:var(--text);cursor:pointer;
+  transition:all 0.25s;font-family:'Poppins',sans-serif;
+}
+.quiz-opt:hover{background:rgba(107,15,26,0.25);border-color:rgba(201,168,76,0.35);transform:translateX(4px)}
+.quiz-opt.correct{background:rgba(76,175,80,0.2);border-color:rgba(76,175,80,0.5);color:#a5d6a7;pointer-events:none}
+.quiz-opt.wrong{background:rgba(244,67,54,0.2);border-color:rgba(244,67,54,0.4);color:#ef9a9a;pointer-events:none}
+.quiz-opt.disabled{pointer-events:none;opacity:0.5}
+.quiz-result{text-align:center;padding:20px 0;position:relative;z-index:1}
+.qr-icon{font-size:4rem;margin-bottom:12px}
+.qr-score{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold);margin-bottom:8px}
+.qr-msg{font-size:0.82rem;color:var(--dim);line-height:1.8}
