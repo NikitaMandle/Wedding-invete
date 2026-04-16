@@ -42,12 +42,27 @@ document.addEventListener('DOMContentLoaded', function(){
     const pp=el('pp');
     if(pp){ const em=['🌹','🌸','🌺','🌷','✿']; for(let i=0;i<12;i++){const p=document.createElement('div');p.className='ep';p.textContent=em[Math.floor(Math.random()*em.length)];p.style.left=(Math.random()*100)+'%';p.style.fontSize=(Math.random()*.6+.5)+'rem';p.style.animationDuration=(Math.random()*6+6)+'s';p.style.animationDelay=(Math.random()*5)+'s';pp.appendChild(p);} }
     const btn=el('photo-cta-btn');
-    if(btn) btn.addEventListener('click', function(){
-      safe(()=>playMusic());
-      screen.style.transition='opacity 0.6s';
-      screen.style.opacity='0';
-      setTimeout(()=>{ screen.style.display='none'; showMain(); }, 650);
-    });
+    if(btn) btn.addEventListener('click',startEnvelope);
+  }
+
+  // ── ENVELOPE ──
+  function startEnvelope(){
+    const photo=el('photo-reveal'), env=el('envelope');
+    if(!env){ showMain(); return; }
+    safe(()=>playMusic());
+    if(photo){ photo.style.transition='opacity 0.5s'; photo.style.opacity='0'; }
+    setTimeout(()=>{
+      if(photo) photo.style.display='none';
+      env.style.display='flex'; env.style.opacity='0'; env.style.transition='opacity 0.5s';
+      env.classList.remove('hidden');
+      safe(()=>mkCanvas('envc',45,['#C9A84C','#C41E3A']));
+      safe(()=>mkPetals('envp',14));
+      setTimeout(()=>{ env.style.opacity='1'; },50);
+      setTimeout(()=>{ safe(()=>el('eflap').classList.add('open')); safe(()=>el('eseal').classList.add('gone')); },700);
+      setTimeout(()=>safe(()=>el('ecrev').classList.add('up')),1900);
+      setTimeout(()=>safe(()=>el('eburst').classList.add('on')),2700);
+      setTimeout(()=>{ env.style.opacity='0'; setTimeout(()=>{ env.style.display='none'; showMain(); },600); },3700);
+    },500);
   }
 
   // ── LOADER ──
@@ -55,19 +70,11 @@ document.addEventListener('DOMContentLoaded', function(){
     const loader=el('loader');
     if(!loader){ showPhoto(); return; }
     safe(()=>mkCanvas('lc',50,['#C9A84C','#C41E3A','#E8C97A','#8B1A2A']));
-    const circle=el('l-prog-circle'), bar=el('l-bar'), circ=339;
-    let progress=0;
-    const iv=setInterval(()=>{
-      progress+=Math.random()*14+4;
-      if(progress>=100){ progress=100; clearInterval(iv); }
-      if(circle) circle.style.strokeDashoffset=circ-(progress/100)*circ;
-      if(bar) bar.style.width=progress+'%';
-    },100);
     let done=false;
     function exitNow(){
-      if(done)return; done=true; clearInterval(iv);
-      loader.style.transition='opacity 0.7s'; loader.style.opacity='0';
-      setTimeout(()=>{ loader.style.display='none'; showPhoto(); },720);
+      if(done)return; done=true;
+      loader.style.transition='opacity 0.6s'; loader.style.opacity='0';
+      setTimeout(()=>{ loader.style.display='none'; showPhoto(); },650);
     }
     setTimeout(exitNow,2500);
     setTimeout(exitNow,4500);
@@ -77,22 +84,6 @@ document.addEventListener('DOMContentLoaded', function(){
   function initMain(){
     safe(()=>mkCanvas('hc',60,['#C9A84C','#C41E3A','#8B1A2A']));
     initCountdown(); initReveal(); initNav(); initGallery();
-    initGuestName();
-  }
-
-  // ── GUEST PERSONALIZATION ──
-  // Usage: https://yoursite.com/?guest=Roshan+Mandale
-  function initGuestName(){
-    try{
-      const params=new URLSearchParams(window.location.search);
-      const raw=params.get('guest');
-      const wt=el('welcomeText');
-      if(!wt) return;
-      if(raw && raw.trim()){
-        const name=decodeURIComponent(raw.trim()).replace(/\+/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
-        wt.textContent='Welcome '+name+' 🎉';
-      }
-    }catch(e){}
   }
 
   // ── COUNTDOWN ──
@@ -100,11 +91,9 @@ document.addEventListener('DOMContentLoaded', function(){
     const target=new Date('2026-05-10T11:00:00+05:30').getTime();
     function tick(){
       const diff=target-Date.now(); if(diff<=0)return;
-      const d=Math.floor(diff/86400000),h=Math.floor((diff%86400000)/3600000);
-      const m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
       const set=(id,v)=>{ const e=el(id); if(e) e.textContent=String(v).padStart(2,'0'); };
-      set('cd-d',d);set('cd-h',h);set('cd-m',m);set('cd-s',s);
-      set('hcd-d',d);set('hcd-h',h);set('hcd-m',m);set('hcd-s',s);
+      set('cd-d',Math.floor(diff/86400000)); set('cd-h',Math.floor((diff%86400000)/3600000));
+      set('cd-m',Math.floor((diff%3600000)/60000)); set('cd-s',Math.floor((diff%60000)/1000));
     }
     tick(); setInterval(tick,1000);
   }
@@ -119,14 +108,15 @@ document.addEventListener('DOMContentLoaded', function(){
   function initNav(){
     window.addEventListener('scroll',()=>{
       safe(()=>el('nav').classList.toggle('solid',window.scrollY>50));
-      const fab=el('fab-top-btn'); if(fab) fab.style.display=window.scrollY>300?'flex':'none';
+      const fab=el('fab-top-btn');
+      if(fab) fab.style.display=window.scrollY>300?'flex':'none';
     });
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
       a.addEventListener('click',e=>{ const t=document.querySelector(a.getAttribute('href')); if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});} });
     });
   }
-  window.openNav  = ()=>safe(()=>{ el('nav-panel').classList.add('open');    document.body.style.overflow='hidden'; });
-  window.closeNav = ()=>safe(()=>{ el('nav-panel').classList.remove('open'); document.body.style.overflow=''; });
+  window.openNav  = function(){ safe(()=>{ el('nav-panel').classList.add('open');    document.body.style.overflow='hidden'; }); };
+  window.closeNav = function(){ safe(()=>{ el('nav-panel').classList.remove('open'); document.body.style.overflow=''; }); };
 
   // ── GALLERY ──
   function initGallery(){
@@ -140,6 +130,7 @@ document.addEventListener('DOMContentLoaded', function(){
     });
     document.querySelectorAll('.gi').forEach((e,i)=>e.addEventListener('click',()=>openLb(i)));
   }
+
   const lbBg=['#3d0808','#1a0303','#3d2d0d','#0d1a3d','#0d3d0d','#2d0d3d'];
   const lbLbl=['Pre-Wedding 1','Pre-Wedding 2','Engagement','Pre-Wedding 3','Celebration','Joy'];
   let lbI=0;
@@ -151,43 +142,20 @@ document.addEventListener('DOMContentLoaded', function(){
     const cap=el('lb-caption'); if(cap) cap.textContent=lbLbl[lbI];
     const ctr=el('lb-counter'); if(ctr) ctr.textContent=(lbI+1)+' / '+lbBg.length;
   }
-  window.closeLb = ()=>{ const l=el('lb'); if(l){l.classList.add('hidden');l.style.display='none';} };
-  window.lbP     = ()=>{ lbI=(lbI-1+lbBg.length)%lbBg.length; showLb(); };
-  window.lbN     = ()=>{ lbI=(lbI+1)%lbBg.length; showLb(); };
+  window.closeLb = function(){ const l=el('lb'); if(l){l.classList.add('hidden');l.style.display='none';} };
+  window.lbP     = function(){ lbI=(lbI-1+lbBg.length)%lbBg.length; showLb(); };
+  window.lbN     = function(){ lbI=(lbI+1)%lbBg.length; showLb(); };
   window.openLb  = openLb;
 
-  // ── EVENT MODAL (for timeline click) ──
-  const VENUE='Sweta Lawn, Mata Amritanandamayi Math, Nigdi, Pune – 411044';
-  const MURL='https://maps.google.com/?q=Mata+Amritanandamayi+Math+Nigdi+Pune';
-  const MSRC='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3781.0!2d73.7700!3d18.6500!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2b9e4b7c3b1a1%3A0xabc!2sNigdi%2C+Pune!5e0!3m2!1sen!2sin!4v1680000000000';
-  const EVDATA={
-    mehndi:  {icon:'🌿',title:'Mehndi Ceremony',  date:'8 May 2026', time:'4:00 PM onwards',venue:VENUE,dress:'Yellow / Green Traditional', mapSrc:MSRC,mapUrl:MURL,calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mehndi+Ceremony&dates=20260508T160000/20260508T210000&location=Sweta+Lawn,+Nigdi,+Pune'},
-    sangeet: {icon:'🎶',title:'Sangeet Night',    date:'9 May 2026', time:'7:00 PM onwards',venue:VENUE,dress:'Cocktail / Festive Colourful',mapSrc:MSRC,mapUrl:MURL,calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sangeet+Night&dates=20260509T190000/20260509T235900&location=Sweta+Lawn,+Nigdi,+Pune'},
-    wedding: {icon:'💍',title:'Wedding Ceremony', date:'10 May 2026',time:'11:00 AM',        venue:VENUE,dress:'Traditional / Formal',        mapSrc:MSRC,mapUrl:MURL,calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Nikhil+%26+Prachi+Wedding&dates=20260510T110000/20260510T180000&location=Sweta+Lawn,+Nigdi,+Pune'},
-    reception:{icon:'🥂',title:'Wedding Reception',date:'10 May 2026',time:'7:00 PM onwards',venue:VENUE,dress:'Ethnic / Formal Elegant',     mapSrc:MSRC,mapUrl:MURL,calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding+Reception&dates=20260510T190000/20260510T235900&location=Sweta+Lawn,+Nigdi,+Pune'}
-  };
-  window.openEventModal = function(key){
-    const d=EVDATA[key]; if(!d)return;
-    const m=el('event-modal'); if(!m)return;
-    el('em-icon').textContent=d.icon; el('em-title').textContent=d.title;
-    el('em-date').textContent=d.date; el('em-time').textContent=d.time;
-    el('em-venue').textContent=d.venue; el('em-dress').textContent=d.dress;
-    el('em-map').src=d.mapSrc; el('em-dir-btn').href=d.mapUrl; el('em-cal-btn').href=d.calUrl;
-    m.classList.remove('hidden'); m.style.display='flex';
-    document.body.style.overflow='hidden';
-  };
-  window.closeEventModal = function(){
-    const m=el('event-modal'); if(!m)return;
-    m.classList.add('hidden'); m.style.display='none';
-    document.body.style.overflow='';
-  };
-
   // ── RSVP ──
-  window.doRSVP = e=>{ e.preventDefault(); safe(()=>{ el('rf').classList.add('hidden'); el('rsvp-ok').classList.remove('hidden'); }); };
+  window.doRSVP = function(e){
+    e.preventDefault();
+    safe(()=>{ el('rf').classList.add('hidden'); el('rsvp-ok').classList.remove('hidden'); });
+  };
 
   // ── WISHES ──
-  window.toggleWF = ()=>safe(()=>el('wf').classList.toggle('hidden'));
-  window.addWish  = ()=>{
+  window.toggleWF = function(){ safe(()=>el('wf').classList.toggle('hidden')); };
+  window.addWish  = function(){
     const n=el('wn').value.trim(), m=el('wm').value.trim(); if(!n||!m)return;
     const c=document.createElement('div'); c.className='wc';
     c.innerHTML='<span class="wq">"</span><p>'+m+'</p><span class="wa">— '+n+'</span>';
@@ -203,23 +171,24 @@ document.addEventListener('DOMContentLoaded', function(){
     a.volume=.35;
     a.play().then(()=>{ mOn=true; updateMusicUI(); }).catch(()=>{});
   }
-  window.toggleMusic = ()=>{
+  window.toggleMusic = function(){
     const a=el('aud'); if(!a)return;
     if(mOn){ a.pause(); mOn=false; } else { a.play().catch(()=>{}); mOn=true; }
     updateMusicUI();
   };
   function updateMusicUI(){
-    const wrap=el('np-music'),title=el('npm-title'),toggle=el('npm-toggle');
-    if(wrap) wrap.classList.toggle('playing',mOn);
-    if(title) title.textContent=mOn?'Stop Music':'Play Music';
+    const wrap=el('np-music'), title=el('npm-title'), toggle=el('npm-toggle');
+    if(wrap)   wrap.classList.toggle('playing',mOn);
+    if(title)  title.textContent=mOn?'Stop Music':'Play Music';
     if(toggle) toggle.textContent=mOn?'⏸':'▶';
-    const nb=el('nav-music-btn'); if(nb) nb.textContent=mOn?'⏸':'🎵';
-    const fi=el('music-fab-icon'); if(fi) fi.textContent=mOn?'⏸':'🎵';
-    const fl=el('music-fab-label'); if(fl) fl.textContent=mOn?'Stop Music':'Play Music';
+    const fabIcon=el('music-fab-icon'), fabLabel=el('music-fab-label'), fabBtn=el('music-fab');
+    if(fabIcon)  fabIcon.textContent=mOn?'⏸':'🎵';
+    if(fabLabel) fabLabel.textContent=mOn?'Stop Music':'Play Music';
+    if(fabBtn)   fabBtn.style.borderColor=mOn?'rgba(201,168,76,0.5)':'rgba(201,168,76,0.25)';
   }
 
   // ── SHARE ──
-  window.doShare = ()=>{
+  window.doShare = function(){
     const d={title:'Nikhil & Prachi Wedding',text:"You're invited! 10 May 2026 💍",url:window.location.href};
     if(navigator.share) navigator.share(d);
     else navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{});
