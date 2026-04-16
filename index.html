@@ -26,29 +26,46 @@
   <canvas id="pc"></canvas>
   <div class="photo-petals" id="pp"></div>
   <div class="inv-card-wrap">
+
     <div class="inv-card">
-      <!-- Corner ornaments -->
+      <!-- Animated shimmer overlay -->
+      <div class="inv-shimmer"></div>
+
+      <!-- Corner brackets -->
       <div class="inv-corner inv-c-tl"></div>
       <div class="inv-corner inv-c-tr"></div>
       <div class="inv-corner inv-c-bl"></div>
       <div class="inv-corner inv-c-br"></div>
-      <!-- Top floral band -->
-      <div class="inv-top-band">
-        <div class="inv-band-roses"></div>
-      </div>
+
+      <!-- Top band -->
+      <div class="inv-top-band"><div class="inv-band-roses"></div></div>
+
       <!-- Card body -->
       <div class="inv-body">
-        <p class="inv-eyebrow">— Wedding Invitation —</p>
-        <!-- Guest welcome — shown only when ?guest= param exists -->
+
+        <!-- GUEST NAME BLOCK — prominent at top -->
         <div class="inv-guest-wrap hidden" id="inv-guest-wrap">
-          <p class="inv-guest-label">Dear</p>
-          <p class="inv-guest-name" id="inv-guest-name"></p>
+          <div class="inv-guest-inner">
+            <span class="inv-guest-dear">Dear</span>
+            <p class="inv-guest-name" id="inv-guest-name"></p>
+            <div class="inv-guest-line"><span></span><span class="inv-guest-gem">✦</span><span></span></div>
+          </div>
         </div>
+
+        <!-- Eyebrow -->
+        <p class="inv-eyebrow">✦ Wedding Invitation ✦</p>
+
+        <!-- Spinning mandala -->
         <div class="inv-mandala">
-          <div class="inv-mandala-ring"></div>
-          <span class="inv-mandala-icon">✦</span>
+          <div class="inv-mandala-ring r1"></div>
+          <div class="inv-mandala-ring r2"></div>
+          <span class="inv-mandala-icon">💍</span>
         </div>
+
+        <!-- Cordially text -->
         <p class="inv-cordially">You are cordially invited to celebrate the wedding of</p>
+
+        <!-- Names -->
         <div class="inv-names-wrap">
           <h1 class="inv-name-groom">Nikhil</h1>
           <div class="inv-names-divider">
@@ -58,28 +75,42 @@
           </div>
           <h1 class="inv-name-bride">Prachi</h1>
         </div>
+
+        <!-- Date block -->
         <div class="inv-date-block">
           <div class="inv-date-row">
-            <span class="inv-date-item"><span class="inv-date-num">10</span><span class="inv-date-lbl">May</span></span>
+            <span class="inv-date-item">
+              <span class="inv-date-num">10</span>
+              <span class="inv-date-lbl">May</span>
+            </span>
             <span class="inv-date-dot">◆</span>
-            <span class="inv-date-item"><span class="inv-date-num">2026</span><span class="inv-date-lbl">Sunday</span></span>
+            <span class="inv-date-item">
+              <span class="inv-date-num">2026</span>
+              <span class="inv-date-lbl">Sunday</span>
+            </span>
           </div>
         </div>
+
+        <!-- Venue -->
         <div class="inv-venue-block">
           <p class="inv-venue-name">Sweta Lawn</p>
           <p class="inv-venue-addr">Nigdi, Pune — Maharashtra</p>
         </div>
+
       </div>
-      <!-- Bottom floral band -->
-      <div class="inv-bot-band">
-        <div class="inv-band-roses"></div>
-      </div>
+
+      <!-- Bottom band -->
+      <div class="inv-bot-band"><div class="inv-band-roses"></div></div>
     </div>
+
+    <!-- Open button -->
     <button class="inv-open-btn" id="photo-cta-btn">
+      <span class="inv-btn-ripple"></span>
       <span>✉</span>
       <span>Open Invitation</span>
       <span class="inv-btn-arrow">→</span>
     </button>
+
   </div>
 </div>
 

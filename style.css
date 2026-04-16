@@ -26,119 +26,177 @@ button{font-family:'Poppins',sans-serif;cursor:pointer;border:none;outline:none}
 .l-dots span{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:lDot 1.4s ease-in-out infinite}
 .l-dots span:nth-child(2){animation-delay:.2s}.l-dots span:nth-child(3){animation-delay:.4s}
 
-/* ── INVITATION CARD (Step 2) ── */
+/* ── INVITATION CARD (Step 2) — Premium ── */
 #photo-reveal{
   position:fixed;inset:0;z-index:900;
   background:radial-gradient(ellipse at 40% 30%,#2a0608 0%,#0a0202 60%,#040101 100%);
   display:flex;align-items:center;justify-content:center;overflow:hidden;
 }
 #pc{position:absolute;inset:0;width:100%;height:100%}
-/* PETALS CLIPPED INSIDE — no overflow outside */
 .photo-petals{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1;clip-path:inset(0)}
 .photo-petals .ep{position:absolute;top:-30px;animation:pFall linear infinite;opacity:0;font-size:0.9rem}
+
 .inv-card-wrap{
   position:relative;z-index:2;
-  display:flex;flex-direction:column;align-items:center;gap:16px;
-  padding:20px 24px;width:100%;max-width:340px;
+  display:flex;flex-direction:column;align-items:center;gap:18px;
+  padding:16px 20px;width:100%;max-width:340px;
   animation:photoReveal 0.9s cubic-bezier(0.4,0,0.2,1) forwards;
 }
+
+/* THE CARD */
 .inv-card{
   width:100%;
-  background:linear-gradient(175deg,#1c0303 0%,#110202 40%,#180303 100%);
-  border:1px solid rgba(201,168,76,0.4);
-  border-radius:18px;overflow:hidden;
-  box-shadow:
-    0 0 0 1px rgba(201,168,76,0.06),
-    0 32px 80px rgba(0,0,0,0.85),
-    0 0 80px rgba(150,10,10,0.2),
-    inset 0 1px 0 rgba(201,168,76,0.18),
-    inset 0 -1px 0 rgba(201,168,76,0.08);
+  background:linear-gradient(170deg,#1e0404 0%,#110202 45%,#1a0303 100%);
+  border:1px solid rgba(201,168,76,0.45);
+  border-radius:20px;overflow:hidden;
   position:relative;
+  box-shadow:
+    0 0 0 1px rgba(201,168,76,0.08),
+    0 28px 80px rgba(0,0,0,0.9),
+    0 0 100px rgba(150,10,10,0.2),
+    inset 0 1px 0 rgba(201,168,76,0.2);
 }
-/* Subtle inner glow */
+/* Shimmer sweep */
+.inv-shimmer{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(105deg,transparent 35%,rgba(201,168,76,0.07) 50%,transparent 65%);
+  background-size:200% 100%;
+  animation:shimmer 4s ease-in-out infinite;
+}
+/* Inner radial glow */
 .inv-card::before{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse at 50% 0%,rgba(201,168,76,0.07) 0%,transparent 55%);
-  z-index:0;
+  content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse at 50% 0%,rgba(201,168,76,0.08),transparent 60%);
 }
-/* Corner brackets */
-.inv-corner{position:absolute;width:22px;height:22px;z-index:3;pointer-events:none}
-.inv-c-tl{top:12px;left:12px;border-top:1.5px solid rgba(201,168,76,0.6);border-left:1.5px solid rgba(201,168,76,0.6)}
-.inv-c-tr{top:12px;right:12px;border-top:1.5px solid rgba(201,168,76,0.6);border-right:1.5px solid rgba(201,168,76,0.6)}
-.inv-c-bl{bottom:12px;left:12px;border-bottom:1.5px solid rgba(201,168,76,0.6);border-left:1.5px solid rgba(201,168,76,0.6)}
-.inv-c-br{bottom:12px;right:12px;border-bottom:1.5px solid rgba(201,168,76,0.6);border-right:1.5px solid rgba(201,168,76,0.6)}
-/* Top band */
+
+/* Corner brackets — larger, more visible */
+.inv-corner{position:absolute;width:28px;height:28px;z-index:4;pointer-events:none}
+.inv-c-tl{top:10px;left:10px;border-top:2px solid rgba(201,168,76,0.7);border-left:2px solid rgba(201,168,76,0.7)}
+.inv-c-tr{top:10px;right:10px;border-top:2px solid rgba(201,168,76,0.7);border-right:2px solid rgba(201,168,76,0.7)}
+.inv-c-bl{bottom:10px;left:10px;border-bottom:2px solid rgba(201,168,76,0.7);border-left:2px solid rgba(201,168,76,0.7)}
+.inv-c-br{bottom:10px;right:10px;border-bottom:2px solid rgba(201,168,76,0.7);border-right:2px solid rgba(201,168,76,0.7)}
+
+/* Floral bands */
 .inv-top-band,.inv-bot-band{
-  width:100%;padding:10px 0;
-  background:linear-gradient(135deg,rgba(107,15,26,0.8),rgba(80,8,16,0.6));
-  display:flex;align-items:center;justify-content:center;gap:10px;
-  position:relative;z-index:1;
-}
-.inv-top-band{border-bottom:1px solid rgba(201,168,76,0.2)}
-.inv-bot-band{border-top:1px solid rgba(201,168,76,0.2)}
-.inv-band-roses{display:flex;align-items:center;gap:8px;opacity:0.7;filter:saturate(0.5) brightness(0.75)}
-.inv-band-roses::before{content:'🌸 ✦ 🌹 ✦ 🌸';font-size:0.85rem;letter-spacing:4px}
-/* Card body */
-.inv-body{padding:20px 24px 22px;text-align:center;position:relative;z-index:1}
-.inv-eyebrow{
-  font-size:0.55rem;letter-spacing:6px;text-transform:uppercase;
-  color:rgba(201,168,76,0.55);margin-bottom:14px;font-weight:400;
-}
-.inv-mandala{
-  width:44px;height:44px;border-radius:50%;
-  border:1px solid rgba(201,168,76,0.35);
-  margin:0 auto 14px;
+  width:100%;padding:11px 0;
+  background:linear-gradient(135deg,rgba(107,15,26,0.85),rgba(60,5,10,0.7));
   display:flex;align-items:center;justify-content:center;
-  position:relative;animation:spinSlow 14s linear infinite;
-  box-shadow:0 0 16px rgba(201,168,76,0.1);
+  position:relative;z-index:2;
 }
-.inv-mandala-ring{position:absolute;inset:5px;border-radius:50%;border:1px solid rgba(201,168,76,0.18)}
-.inv-mandala-icon{color:var(--gold);font-size:0.85rem;position:relative;z-index:1}
+.inv-top-band{border-bottom:1px solid rgba(201,168,76,0.25)}
+.inv-bot-band{border-top:1px solid rgba(201,168,76,0.25)}
+.inv-band-roses{opacity:0.65;filter:saturate(0.5) brightness(0.75)}
+.inv-band-roses::before{content:'🌸 ✦ 🌹 ✦ 🌸';font-size:0.82rem;letter-spacing:5px}
+
+/* Card body */
+.inv-body{padding:18px 22px 20px;text-align:center;position:relative;z-index:2}
+
+/* ── GUEST NAME BLOCK — most prominent element ── */
+.inv-guest-wrap{
+  margin-bottom:16px;
+  background:linear-gradient(135deg,rgba(107,15,26,0.4),rgba(60,5,10,0.3));
+  border:1px solid rgba(201,168,76,0.25);
+  border-radius:14px;padding:14px 16px;
+  position:relative;overflow:hidden;
+}
+.inv-guest-wrap::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 0%,rgba(201,168,76,0.06),transparent 70%);
+  pointer-events:none;
+}
+.inv-guest-inner{position:relative;z-index:1}
+.inv-guest-dear{
+  font-family:'Cinzel',serif;
+  font-size:0.55rem;letter-spacing:5px;text-transform:uppercase;
+  color:rgba(201,168,76,0.6);display:block;margin-bottom:4px;
+}
+.inv-guest-name{
+  font-family:'Great Vibes',cursive;
+  font-size:2.6rem;color:#fff;line-height:1.1;
+  text-shadow:0 0 40px rgba(201,168,76,0.4),0 2px 12px rgba(0,0,0,0.6);
+  animation:guestNameReveal 0.8s cubic-bezier(0.4,0,0.2,1) 0.2s both;
+}
+@keyframes guestNameReveal{from{opacity:0;transform:translateY(10px) scale(0.9)}to{opacity:1;transform:translateY(0) scale(1)}}
+.inv-guest-line{
+  display:flex;align-items:center;gap:8px;
+  justify-content:center;margin-top:6px;
+}
+.inv-guest-line span:not(.inv-guest-gem){
+  flex:1;max-width:40px;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(201,168,76,0.4));
+}
+.inv-guest-line span:last-child{background:linear-gradient(90deg,rgba(201,168,76,0.4),transparent)}
+.inv-guest-gem{color:var(--gold);font-size:0.45rem;opacity:0.6}
+
+/* Eyebrow */
+.inv-eyebrow{
+  font-family:'Cinzel',serif;
+  font-size:0.52rem;letter-spacing:5px;text-transform:uppercase;
+  color:rgba(201,168,76,0.6);margin-bottom:12px;font-weight:400;
+}
+
+/* Mandala — dual rings */
+.inv-mandala{
+  width:48px;height:48px;border-radius:50%;
+  margin:0 auto 12px;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+  box-shadow:0 0 20px rgba(201,168,76,0.12);
+}
+.inv-mandala-ring{position:absolute;border-radius:50%;border:1px solid rgba(201,168,76,0.3)}
+.r1{inset:0;animation:spinSlow 12s linear infinite}
+.r2{inset:7px;border-color:rgba(201,168,76,0.15);animation:spinSlow 8s linear infinite reverse}
+.inv-mandala-icon{font-size:1.3rem;position:relative;z-index:1}
+
+/* Cordially */
 .inv-cordially{
-  font-size:0.62rem;color:rgba(237,224,204,0.4);
-  line-height:1.7;margin-bottom:14px;letter-spacing:0.3px;
+  font-size:0.6rem;color:rgba(237,224,204,0.42);
+  line-height:1.7;margin-bottom:12px;letter-spacing:0.3px;
 }
-.inv-names-wrap{margin-bottom:16px}
+
+/* Names */
+.inv-names-wrap{margin-bottom:14px}
 .inv-name-groom,.inv-name-bride{
   font-family:'Great Vibes',cursive;
-  font-size:4rem;color:#fff;line-height:1.05;
-  text-shadow:0 0 50px rgba(201,168,76,0.2),0 2px 12px rgba(0,0,0,0.6);
+  font-size:4.2rem;color:#fff;line-height:1.05;
+  text-shadow:0 0 60px rgba(201,168,76,0.22),0 2px 14px rgba(0,0,0,0.7);
 }
-.inv-names-divider{
-  display:flex;align-items:center;gap:10px;
-  justify-content:center;margin:2px 0;
-}
+.inv-names-divider{display:flex;align-items:center;gap:10px;justify-content:center;margin:2px 0}
 .inv-div-line{flex:1;max-width:44px;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.35))}
 .inv-div-line:last-child{background:linear-gradient(90deg,rgba(201,168,76,0.35),transparent)}
-.inv-amp{
-  font-family:'Great Vibes',cursive;font-size:2.6rem;
-  color:var(--gold);line-height:1;
-  text-shadow:0 0 24px rgba(201,168,76,0.45);
-}
+.inv-amp{font-family:'Great Vibes',cursive;font-size:2.8rem;color:var(--gold);line-height:1;text-shadow:0 0 28px rgba(201,168,76,0.5)}
+
+/* Date block */
 .inv-date-block{
-  background:rgba(201,168,76,0.05);
-  border:1px solid rgba(201,168,76,0.18);
-  border-radius:10px;padding:10px 16px;margin-bottom:14px;
+  background:rgba(201,168,76,0.06);
+  border:1px solid rgba(201,168,76,0.2);
+  border-radius:12px;padding:10px 16px;margin-bottom:12px;
 }
 .inv-date-row{display:flex;align-items:center;justify-content:center;gap:14px}
 .inv-date-item{display:flex;flex-direction:column;align-items:center;gap:1px}
-.inv-date-num{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--gold);line-height:1}
-.inv-date-lbl{font-size:0.55rem;letter-spacing:2px;text-transform:uppercase;color:var(--dim);font-weight:400}
+.inv-date-num{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--gold);line-height:1}
+.inv-date-lbl{font-size:0.52rem;letter-spacing:2px;text-transform:uppercase;color:var(--dim);font-weight:400}
 .inv-date-dot{color:var(--gold);font-size:0.45rem;opacity:0.45}
+
+/* Venue */
 .inv-venue-block{margin-top:2px}
 .inv-venue-name{font-family:'Cormorant Garamond',serif;font-size:0.95rem;color:var(--cream);font-weight:500;letter-spacing:1px;margin-bottom:2px}
-.inv-venue-addr{font-size:0.62rem;color:var(--dim);letter-spacing:0.5px}
+.inv-venue-addr{font-size:0.6rem;color:var(--dim);letter-spacing:0.5px}
+
 /* Open button */
 .inv-open-btn{
+  position:relative;overflow:hidden;
   display:inline-flex;align-items:center;justify-content:center;gap:10px;
   background:linear-gradient(135deg,var(--maroon),var(--rose));
-  color:var(--gold);border:1px solid rgba(201,168,76,0.32);
-  border-radius:50px;padding:15px 36px;font-size:0.8rem;font-weight:500;
+  color:var(--gold);border:1px solid rgba(201,168,76,0.35);
+  border-radius:50px;padding:15px 36px;font-size:0.82rem;font-weight:500;
   letter-spacing:1.5px;min-height:52px;width:100%;
-  box-shadow:0 4px 28px rgba(107,15,26,0.6),inset 0 1px 0 rgba(255,255,255,0.05);
-  transition:all 0.3s;animation:btnPulse 2.5s ease-in-out infinite;
+  box-shadow:0 4px 28px rgba(107,15,26,0.65),inset 0 1px 0 rgba(255,255,255,0.06);
+  transition:all 0.3s;animation:btnPulse 2.5s ease-in-out infinite;cursor:pointer;
 }
-.inv-open-btn:hover{transform:translateY(-3px);box-shadow:0 10px 40px rgba(107,15,26,0.8)}
+.inv-open-btn:hover{transform:translateY(-3px);box-shadow:0 10px 44px rgba(107,15,26,0.85)}
+.inv-btn-ripple{position:absolute;inset:0;background:radial-gradient(circle at center,rgba(255,255,255,0.08),transparent 70%);opacity:0;transition:opacity 0.3s}
+.inv-open-btn:active .inv-btn-ripple{opacity:1}
 .inv-btn-arrow{font-size:1rem;transition:transform 0.3s}
 .inv-open-btn:hover .inv-btn-arrow{transform:translateX(4px)}
 
