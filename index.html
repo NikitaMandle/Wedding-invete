@@ -247,97 +247,23 @@
       <div class="cd-box"><span class="cd-n" id="cd-s">00</span><span class="cd-l">Secs</span></div>
     </div>
 
-    <!-- Calendar section label -->
-    <div class="cal-section-label reveal-child">
-      <span class="cal-section-line"></span>
-      <span class="cal-section-text">Wedding Calendar</span>
-      <span class="cal-section-line"></span>
-    </div>
-
-    <!-- Groom / Bride Toggle -->
-    <div class="cal-toggle-wrap reveal-child">
-      <button class="cal-toggle-btn active" id="cal-btn-groom" onclick="switchCal('groom')">
-        <span class="ctb-emoji">🤵</span>
-        <div class="ctb-text">
-          <span class="ctb-name">Groom</span>
-          <span class="ctb-sub">Nikhil's Events</span>
-        </div>
-      </button>
-      <button class="cal-toggle-btn" id="cal-btn-bride" onclick="switchCal('bride')">
-        <span class="ctb-emoji">👰</span>
-        <div class="ctb-text">
-          <span class="ctb-name">Bride</span>
-          <span class="ctb-sub">Prachi's Events</span>
-        </div>
-      </button>
-    </div>
-
-    <!-- GROOM CALENDAR -->
-    <div class="cal reveal-child" id="cal-groom">
+    <!-- Simple Calendar — only wedding date highlighted -->
+    <div class="cal reveal-child">
       <div class="cal-head">
         <span class="cal-title">May 2026</span>
-        <span class="cal-badge cal-badge-groom">🤵 Nikhil's Schedule</span>
       </div>
       <div class="cal-grid">
         <b>Su</b><b>Mo</b><b>Tu</b><b>We</b><b>Th</b><b>Fr</b><b>Sa</b>
         <i></i><i></i><i></i><i></i><i></i><s>1</s><s>2</s>
-        <s>3</s><s>4</s>
-        <s class="ev-dot-only" title="🪔 Gondhal Ceremony">5<span class="ev-pip" style="background:#FF8C00"></span></s>
-        <s class="ev-dot-only" title="🌿 Mehendi Ceremony">6<span class="ev-pip" style="background:#4CAF50"></span></s>
-        <s class="ev-dot-only" title="🌼 Haldi & Devkundi">7<span class="ev-pip" style="background:#FFEB3B"></span></s>
-        <s class="ev-dot-only" title="🚂 Departure to Pune">8<span class="ev-pip" style="background:#64B5F6"></span></s>
-        <s class="ev-dot-only" title="🏡 Arrival & Preparations">9<span class="ev-pip" style="background:#81C784"></span></s>
-        <s class="ev ev-wedding" title="💍 Wedding Ceremony">10</s>
-        <s class="ev-dot-only" title="🏠 Return to Amravati">11<span class="ev-pip" style="background:#F48FB1"></span></s>
-        <s class="ev-dot-only" title="🥂 Reception & Satyanarayan">12<span class="ev-pip" style="background:#E64A19"></span></s>
-        <s class="ev-dot-only" title="🚂 Travel to Pune">13<span class="ev-pip" style="background:#64B5F6"></span></s>
-        <s class="ev-dot-only" title="🙏 Satyanarayan Pooja">14<span class="ev-pip" style="background:#FFD700"></span></s>
-        <s>15</s><s>16</s><s>17</s><s>18</s><s>19</s><s>20</s><s>21</s>
-        <s>22</s><s>23</s><s>24</s><s>25</s><s>26</s><s>27</s><s>28</s>
-        <s>29</s><s>30</s><s>31</s><i></i><i></i><i></i><i></i>
+        <s>3</s><s>4</s><s>5</s><s>6</s><s>7</s><s>8</s><s>9</s>
+        <s class="ev ev-wedding" title="💍 Wedding Day">10</s>
+        <s>11</s><s>12</s><s>13</s><s>14</s><s>15</s><s>16</s>
+        <s>17</s><s>18</s><s>19</s><s>20</s><s>21</s><s>22</s><s>23</s>
+        <s>24</s><s>25</s><s>26</s><s>27</s><s>28</s><s>29</s><s>30</s>
+        <s>31</s><i></i><i></i><i></i><i></i><i></i><i></i>
       </div>
-      <div class="cal-event-list">
-        <div class="cal-ev-item"><span class="cal-ev-pip" style="background:#FF8C00"></span><span class="cal-ev-date">05 May</span><span class="cal-ev-name">🪔 Gondhal Ceremony</span></div>
-        <div class="cal-ev-item"><span class="cal-ev-pip" style="background:#4CAF50"></span><span class="cal-ev-date">06 May</span><span class="cal-ev-name">🌿 Mehendi Ceremony</span></div>
-        <div class="cal-ev-item"><span class="cal-ev-pip" style="background:#FFEB3B"></span><span class="cal-ev-date">07 May</span><span class="cal-ev-name">🌼 Haldi &amp; Devkundi</span></div>
-        <div class="cal-ev-item"><span class="cal-ev-pip" style="background:#64B5F6"></span><span class="cal-ev-date">08 May</span><span class="cal-ev-name">🚂 Departure to Pune</span></div>
-        <div class="cal-ev-item"><span class="cal-ev-pip" style="background:#81C784"></span><span class="cal-ev-date">09 May</span><span class="cal-ev-name">🏡 Arrival &amp; Preparations</span></div>
-        <div class="cal-ev-item cal-ev-featured"><span class="cal-ev-pip" style="background:#C9A84C"></span><span class="cal-ev-date">10 May</span><span class="cal-ev-name">💍 Wedding Ceremony</span></div>
-        <div class="cal-ev-item"><span class="cal-ev-pip" style="background:#F48FB1"></span><span class="cal-ev-date">11 May</span><span class="cal-ev-name">🏠 Return to Amravati</span></div>
-        <div class="cal-ev-item"><span class="cal-ev-pip" style="background:#E64A19"></span><span class="cal-ev-date">12 May</span><span class="cal-ev-name">🥂 Reception &amp; Satyanarayan</span></div>
-        <div class="cal-ev-item"><span class="cal-ev-pip" style="background:#FFD700"></span><span class="cal-ev-date">14 May</span><span class="cal-ev-name">🙏 Satyanarayan Pooja</span></div>
-      </div>
-      <a class="btn-g" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Nikhil+%26+Prachi+Wedding&dates=20260510T110000/20260510T180000&location=Mata+Amritanandamayi+Math,+Nigdi,+Pune" target="_blank">📅 Add Wedding to Calendar</a>
-    </div>
-
-    <!-- BRIDE CALENDAR -->
-    <div class="cal hidden" id="cal-bride">
-      <div class="cal-head">
-        <span class="cal-title">May 2026</span>
-        <span class="cal-badge cal-badge-bride">👰 Prachi's Schedule</span>
-      </div>
-      <div class="cal-grid">
-        <b>Su</b><b>Mo</b><b>Tu</b><b>We</b><b>Th</b><b>Fr</b><b>Sa</b>
-        <i></i><i></i><i></i><i></i><i></i><s>1</s><s>2</s>
-        <s>3</s><s>4</s><s>5</s><s>6</s>
-        <s class="ev-dot-only" title="🌼 Haldi Ceremony">7<span class="ev-pip" style="background:#FFEB3B"></span></s>
-        <s class="ev-dot-only" title="🌿 Mehndi Ceremony">8<span class="ev-pip" style="background:#4CAF50"></span></s>
-        <s class="ev-dot-only" title="🎶 Sangeet Night">9<span class="ev-pip" style="background:#9C27B0"></span></s>
-        <s class="ev ev-wedding" title="💍 Wedding Ceremony">10</s>
-        <s>11</s><s>12</s><s>13</s><s>14</s>
-        <s>15</s><s>16</s><s>17</s><s>18</s><s>19</s><s>20</s><s>21</s>
-        <s>22</s><s>23</s><s>24</s><s>25</s><s>26</s><s>27</s><s>28</s>
-        <s>29</s><s>30</s><s>31</s><i></i><i></i><i></i><i></i>
-      </div>
-      <div class="cal-event-list">
-        <div class="cal-ev-item"><span class="cal-ev-pip" style="background:#FFEB3B"></span><span class="cal-ev-date">07 May</span><span class="cal-ev-name">🌼 Haldi Ceremony</span></div>
-        <div class="cal-ev-item"><span class="cal-ev-pip" style="background:#4CAF50"></span><span class="cal-ev-date">08 May</span><span class="cal-ev-name">🌿 Mehndi Ceremony</span></div>
-        <div class="cal-ev-item"><span class="cal-ev-pip" style="background:#9C27B0"></span><span class="cal-ev-date">09 May</span><span class="cal-ev-name">🎶 Sangeet Night</span></div>
-        <div class="cal-ev-item cal-ev-featured"><span class="cal-ev-pip" style="background:#C9A84C"></span><span class="cal-ev-date">10 May</span><span class="cal-ev-name">💍 Wedding Ceremony</span></div>
-        <div class="cal-ev-item"><span class="cal-ev-pip" style="background:#F48FB1"></span><span class="cal-ev-date">10 May</span><span class="cal-ev-name">🌸 Vidaai</span></div>
-        <div class="cal-ev-item"><span class="cal-ev-pip" style="background:#E64A19"></span><span class="cal-ev-date">10 May</span><span class="cal-ev-name">🥂 Wedding Reception</span></div>
-      </div>
-      <a class="btn-g" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Nikhil+%26+Prachi+Wedding&dates=20260510T110000/20260510T180000&location=Mata+Amritanandamayi+Math,+Nigdi,+Pune" target="_blank">📅 Add Wedding to Calendar</a>
+      <div class="cal-wedding-label">💍 Wedding Day — 10 May 2026</div>
+      <a class="btn-g" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Nikhil+%26+Prachi+Wedding&dates=20260510T110000/20260510T180000&location=Mata+Amritanandamayi+Math,+Nigdi,+Pune" target="_blank">📅 Add to Calendar</a>
     </div>
 
   </section>

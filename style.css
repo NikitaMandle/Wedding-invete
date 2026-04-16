@@ -1004,3 +1004,17 @@ button{font-family:'Poppins',sans-serif;cursor:pointer;border:none;outline:none}
 .cal-ev-date{font-family:'Cinzel',serif;font-size:0.56rem;color:var(--gold);letter-spacing:1px;min-width:46px;flex-shrink:0}
 .cal-ev-name{font-size:0.76rem;color:var(--text);font-weight:400}
 .cal-ev-featured .cal-ev-name{color:var(--gold);font-weight:600}
+
+/* Wedding day label */
+.cal-wedding-label{
+  text-align:center;
+  font-family:'Cinzel',serif;
+  font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:14px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.cal-wedding-label::before,.cal-wedding-label::after{
+  content:'';flex:1;max-width:40px;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(201,168,76,0.4));
+}
+.cal-wedding-label::after{background:linear-gradient(90deg,rgba(201,168,76,0.4),transparent)}
