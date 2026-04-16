@@ -606,3 +606,125 @@ button{font-family:'Poppins',sans-serif;cursor:pointer;border:none;outline:none}
 .ft-btn-wa{background:linear-gradient(135deg,#075e54,#128c7e)!important;border-color:rgba(37,211,102,0.3)!important;color:#25d366!important}
 .ft-btn-wa:hover{background:linear-gradient(135deg,#128c7e,#25d366)!important;color:#fff!important}
 .ft-btn span:first-child{font-size:0.9rem}
+
+/* ══ PREMIUM EVENTS TIMELINE ══ */
+.events-s{background:linear-gradient(180deg,#060101,#0d0202);text-align:center}
+
+/* Toggle */
+.ev-toggle-wrap{display:flex;gap:10px;justify-content:center;margin-bottom:28px;position:relative;z-index:1}
+.ev-toggle-btn{
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  padding:14px 24px;border-radius:16px;
+  background:rgba(255,255,255,0.03);border:1px solid rgba(201,168,76,0.15);
+  color:rgba(237,224,204,0.4);cursor:pointer;
+  transition:all 0.35s cubic-bezier(0.4,0,0.2,1);min-width:130px;
+}
+.ev-toggle-btn.active{
+  background:linear-gradient(135deg,rgba(107,15,26,0.6),rgba(139,26,42,0.4));
+  border-color:rgba(201,168,76,0.4);color:var(--gold);
+  box-shadow:0 4px 20px rgba(107,15,26,0.4);
+}
+.ev-toggle-btn:hover:not(.active){border-color:rgba(201,168,76,0.25);color:rgba(237,224,204,0.65)}
+.etb-icon{font-size:1.6rem;line-height:1}
+.etb-label{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;line-height:1}
+.etb-sub{font-size:0.58rem;letter-spacing:1px;opacity:0.7}
+
+/* Timeline container */
+.ev-timeline{position:relative;z-index:1;padding:0 4px;transition:opacity 0.3s,transform 0.3s}
+.ev-timeline.tl-exit{opacity:0;transform:translateX(-12px);pointer-events:none}
+.ev-timeline.tl-enter{opacity:0;transform:translateX(12px)}
+
+/* Vertical line */
+.ev-timeline::before{
+  content:'';position:absolute;left:52px;top:20px;bottom:20px;
+  width:1px;background:linear-gradient(180deg,transparent,rgba(201,168,76,0.3) 10%,rgba(201,168,76,0.3) 90%,transparent);
+  z-index:0;
+}
+
+/* Each timeline item */
+.ev-tl-item{
+  display:flex;align-items:flex-start;gap:0;
+  margin-bottom:16px;cursor:pointer;
+  transition:transform 0.25s;
+}
+.ev-tl-item:hover{transform:translateX(4px)}
+.ev-tl-item:active{transform:scale(0.98)}
+
+/* Date column */
+.ev-tl-date{
+  width:48px;flex-shrink:0;text-align:center;
+  padding-top:14px;
+}
+.ev-tl-day{display:block;font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--dim);line-height:1}
+.ev-tl-mon{display:block;font-size:0.55rem;letter-spacing:2px;text-transform:uppercase;color:var(--dim2)}
+.ev-tl-date-gold .ev-tl-day{color:var(--gold)}
+.ev-tl-date-gold .ev-tl-mon{color:rgba(201,168,76,0.6)}
+
+/* Center line + dot */
+.ev-tl-line{
+  width:20px;flex-shrink:0;
+  display:flex;flex-direction:column;align-items:center;
+  padding-top:18px;position:relative;z-index:1;
+}
+.ev-tl-dot{
+  width:12px;height:12px;border-radius:50%;flex-shrink:0;
+  border:2px solid rgba(10,2,2,0.8);
+  box-shadow:0 0 8px currentColor;
+  transition:transform 0.25s;
+}
+.ev-tl-item:hover .ev-tl-dot{transform:scale(1.3)}
+.ev-tl-dot-gold{
+  width:16px;height:16px;
+  background:var(--gold)!important;
+  box-shadow:0 0 16px rgba(201,168,76,0.6)!important;
+  animation:calPulse 2s ease-in-out infinite;
+}
+
+/* Card */
+.ev-tl-card{
+  flex:1;margin-left:12px;
+  background:rgba(255,255,255,0.025);
+  border:1px solid rgba(201,168,76,0.12);
+  border-radius:16px;padding:14px 16px;
+  transition:all 0.28s;
+  box-shadow:0 2px 12px rgba(0,0,0,0.3);
+}
+.ev-tl-item:hover .ev-tl-card{
+  background:rgba(107,15,26,0.15);
+  border-color:rgba(201,168,76,0.25);
+  box-shadow:0 6px 24px rgba(107,15,26,0.25);
+}
+.ev-tl-card-gold{
+  background:linear-gradient(135deg,rgba(107,15,26,0.3),rgba(60,5,10,0.4))!important;
+  border-color:rgba(201,168,76,0.35)!important;
+  box-shadow:0 4px 24px rgba(201,168,76,0.1)!important;
+}
+
+/* Card top row */
+.ev-tl-top{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.ev-tl-icon{font-size:1.2rem}
+.ev-tl-badge{
+  font-size:0.58rem;font-weight:600;letter-spacing:1px;
+  padding:2px 8px;border-radius:20px;text-transform:uppercase;
+}
+
+/* Card text */
+.ev-tl-name{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--cream);font-weight:600;margin-bottom:3px;line-height:1.2}
+.ev-tl-name-gold{color:var(--gold)!important;font-size:1.15rem!important}
+.ev-tl-time{font-size:0.68rem;color:var(--dim);margin-bottom:3px}
+.ev-tl-dress{font-size:0.65rem;color:rgba(201,168,76,0.6);margin-bottom:10px}
+
+/* Actions row — days countdown + calendar button */
+.ev-tl-actions{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.ev-tl-days{
+  font-size:0.6rem;color:var(--gold);font-weight:500;
+  background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.15);
+  border-radius:20px;padding:3px 10px;white-space:nowrap;
+}
+.ev-tl-cal{
+  font-size:0.62rem;color:var(--dim);
+  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
+  border-radius:20px;padding:4px 10px;cursor:pointer;
+  transition:all 0.2s;white-space:nowrap;
+}
+.ev-tl-cal:hover{background:rgba(201,168,76,0.1);border-color:rgba(201,168,76,0.25);color:var(--gold)}

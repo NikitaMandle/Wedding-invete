@@ -249,83 +249,199 @@
     </div>
   </section>
 
-  <!-- EVENTS -->
+  <!-- EVENTS — Premium Timeline -->
   <section id="s-events" class="s events-s reveal">
     <div class="sf-l"></div><div class="sf-r"></div>
-    <div class="s-label">Programme</div>
-    <h2 class="s-title">Timing</h2>
+    <div class="s-label">The Big Day</div>
+    <h2 class="s-title">Programme</h2>
 
-    <!-- GROOM / BRIDE TOGGLE -->
-    <div class="oe-toggle-wrap">
-      <button class="oe-toggle-btn active" id="btn-groom" onclick="switchTimeline('groom')">
-        <span>🤵</span><span>Groom's Events</span>
+    <!-- TOGGLE -->
+    <div class="ev-toggle-wrap">
+      <button class="ev-toggle-btn active" id="btn-groom" onclick="switchTimeline('groom')">
+        <span class="etb-icon">🤵</span>
+        <span class="etb-label">Groom</span>
+        <span class="etb-sub">Nikhil's Events</span>
       </button>
-      <div class="oe-toggle-divider"></div>
-      <button class="oe-toggle-btn" id="btn-bride" onclick="switchTimeline('bride')">
-        <span>👰</span><span>Bride's Events</span>
+      <button class="ev-toggle-btn" id="btn-bride" onclick="switchTimeline('bride')">
+        <span class="etb-icon">👰</span>
+        <span class="etb-label">Bride</span>
+        <span class="etb-sub">Prachi's Events</span>
       </button>
     </div>
 
-    <!-- GROOM EVENTS -->
-    <div class="ev-cards" id="timeline-groom">
-      <div class="ev-card reveal-child" style="--i:0" onclick="openEventModal('g_gondhal')">
-        <div class="ev-accent" style="background:linear-gradient(180deg,#FF8C00,#E65100)"></div>
-        <div class="ev-left"><span class="ev-emoji">🪔</span><span class="ev-day">05<br/>May</span></div>
-        <div class="ev-right"><h3>Gondhal Ceremony</h3><p class="ev-time">Evening · Amravati</p><p class="ev-place">Nikhil's Home, Rajapeth</p><span class="ev-tag">Traditional Attire</span></div>
+    <!-- GROOM TIMELINE -->
+    <div class="ev-timeline" id="timeline-groom">
+      <div class="ev-tl-item" onclick="openEventModal('g_gondhal')">
+        <div class="ev-tl-date"><span class="ev-tl-day">05</span><span class="ev-tl-mon">May</span></div>
+        <div class="ev-tl-line"><div class="ev-tl-dot" style="background:#FF8C00"></div></div>
+        <div class="ev-tl-card">
+          <div class="ev-tl-top"><span class="ev-tl-icon">🪔</span><span class="ev-tl-badge" style="background:rgba(255,140,0,0.15);color:#FFB74D">Amravati</span></div>
+          <h3 class="ev-tl-name">Gondhal Ceremony</h3>
+          <p class="ev-tl-time">Evening · Nikhil's Home, Rajapeth</p>
+          <p class="ev-tl-dress">👗 Traditional Attire</p>
+          <div class="ev-tl-actions">
+            <span class="ev-tl-days" id="days-g_gondhal"></span>
+            <button class="ev-tl-cal" onclick="event.stopPropagation();addToCal('g_gondhal')">+ Calendar</button>
+          </div>
+        </div>
       </div>
-      <div class="ev-card reveal-child" style="--i:1" onclick="openEventModal('g_mehendi')">
-        <div class="ev-accent" style="background:linear-gradient(180deg,#4CAF50,#2E7D32)"></div>
-        <div class="ev-left"><span class="ev-emoji">🌿</span><span class="ev-day">06<br/>May</span></div>
-        <div class="ev-right"><h3>Mehendi Ceremony</h3><p class="ev-time">Afternoon · Amravati</p><p class="ev-place">Nikhil's Home, Rajapeth</p><span class="ev-tag">Casual / Traditional</span></div>
+      <div class="ev-tl-item" onclick="openEventModal('g_mehendi')">
+        <div class="ev-tl-date"><span class="ev-tl-day">06</span><span class="ev-tl-mon">May</span></div>
+        <div class="ev-tl-line"><div class="ev-tl-dot" style="background:#4CAF50"></div></div>
+        <div class="ev-tl-card">
+          <div class="ev-tl-top"><span class="ev-tl-icon">🌿</span><span class="ev-tl-badge" style="background:rgba(76,175,80,0.15);color:#A5D6A7">Amravati</span></div>
+          <h3 class="ev-tl-name">Mehendi Ceremony</h3>
+          <p class="ev-tl-time">Afternoon · Nikhil's Home, Rajapeth</p>
+          <p class="ev-tl-dress">👗 Casual / Traditional</p>
+          <div class="ev-tl-actions">
+            <span class="ev-tl-days" id="days-g_mehendi"></span>
+            <button class="ev-tl-cal" onclick="event.stopPropagation();addToCal('g_mehendi')">+ Calendar</button>
+          </div>
+        </div>
       </div>
-      <div class="ev-card reveal-child" style="--i:2" onclick="openEventModal('g_haldi')">
-        <div class="ev-accent" style="background:linear-gradient(180deg,#FFEB3B,#F9A825)"></div>
-        <div class="ev-left"><span class="ev-emoji">🌼</span><span class="ev-day">07<br/>May</span></div>
-        <div class="ev-right"><h3>Haldi &amp; Devkundi</h3><p class="ev-time">Morning · Amravati</p><p class="ev-place">Nikhil's Home, Rajapeth</p><span class="ev-tag">Yellow / White</span></div>
+      <div class="ev-tl-item" onclick="openEventModal('g_haldi')">
+        <div class="ev-tl-date"><span class="ev-tl-day">07</span><span class="ev-tl-mon">May</span></div>
+        <div class="ev-tl-line"><div class="ev-tl-dot" style="background:#FFEB3B"></div></div>
+        <div class="ev-tl-card">
+          <div class="ev-tl-top"><span class="ev-tl-icon">🌼</span><span class="ev-tl-badge" style="background:rgba(255,235,59,0.15);color:#FFF176">Amravati</span></div>
+          <h3 class="ev-tl-name">Haldi &amp; Devkundi</h3>
+          <p class="ev-tl-time">Morning · Nikhil's Home, Rajapeth</p>
+          <p class="ev-tl-dress">👗 Yellow / White Traditional</p>
+          <div class="ev-tl-actions">
+            <span class="ev-tl-days" id="days-g_haldi"></span>
+            <button class="ev-tl-cal" onclick="event.stopPropagation();addToCal('g_haldi')">+ Calendar</button>
+          </div>
+        </div>
       </div>
-      <div class="ev-card reveal-child" style="--i:3" onclick="openEventModal('g_travel')">
-        <div class="ev-accent" style="background:linear-gradient(180deg,#64B5F6,#1565C0)"></div>
-        <div class="ev-left"><span class="ev-emoji">🚂</span><span class="ev-day">08<br/>May</span></div>
-        <div class="ev-right"><h3>Departure to Pune</h3><p class="ev-time">Morning · Travel</p><p class="ev-place">Amravati → Pune</p><span class="ev-tag">Comfortable Wear</span></div>
+      <div class="ev-tl-item" onclick="openEventModal('g_travel')">
+        <div class="ev-tl-date"><span class="ev-tl-day">08</span><span class="ev-tl-mon">May</span></div>
+        <div class="ev-tl-line"><div class="ev-tl-dot" style="background:#64B5F6"></div></div>
+        <div class="ev-tl-card">
+          <div class="ev-tl-top"><span class="ev-tl-icon">🚂</span><span class="ev-tl-badge" style="background:rgba(100,181,246,0.15);color:#90CAF9">Travel</span></div>
+          <h3 class="ev-tl-name">Departure to Pune</h3>
+          <p class="ev-tl-time">Morning · Amravati → Pune</p>
+          <p class="ev-tl-dress">👗 Comfortable Wear</p>
+          <div class="ev-tl-actions">
+            <span class="ev-tl-days" id="days-g_travel"></span>
+            <button class="ev-tl-cal" onclick="event.stopPropagation();addToCal('g_travel')">+ Calendar</button>
+          </div>
+        </div>
       </div>
-      <div class="ev-card ev-featured reveal-child" style="--i:4" onclick="openEventModal('g_wedding')">
-        <div class="ev-accent" style="background:linear-gradient(180deg,#C9A84C,#E8C97A)"></div>
-        <div class="ev-left"><span class="ev-emoji">💍</span><span class="ev-day">10<br/>May</span></div>
-        <div class="ev-right"><h3>Wedding Ceremony</h3><p class="ev-time">11:00 AM · Pune</p><p class="ev-place">Sweta Lawn, Nigdi</p><span class="ev-tag">Sherwani / Formal</span></div>
+      <div class="ev-tl-item ev-tl-featured" onclick="openEventModal('g_wedding')">
+        <div class="ev-tl-date ev-tl-date-gold"><span class="ev-tl-day">10</span><span class="ev-tl-mon">May</span></div>
+        <div class="ev-tl-line"><div class="ev-tl-dot ev-tl-dot-gold"></div></div>
+        <div class="ev-tl-card ev-tl-card-gold">
+          <div class="ev-tl-top"><span class="ev-tl-icon">💍</span><span class="ev-tl-badge" style="background:rgba(201,168,76,0.2);color:#E8C97A">The Big Day</span></div>
+          <h3 class="ev-tl-name ev-tl-name-gold">Wedding Ceremony</h3>
+          <p class="ev-tl-time">11:00 AM · Sweta Lawn, Nigdi, Pune</p>
+          <p class="ev-tl-dress">👗 Sherwani / Formal</p>
+          <div class="ev-tl-actions">
+            <span class="ev-tl-days" id="days-g_wedding"></span>
+            <button class="ev-tl-cal" onclick="event.stopPropagation();addToCal('g_wedding')">+ Calendar</button>
+          </div>
+        </div>
       </div>
-      <div class="ev-card reveal-child" style="--i:5" onclick="openEventModal('g_reception')">
-        <div class="ev-accent" style="background:linear-gradient(180deg,#E64A19,#BF360C)"></div>
-        <div class="ev-left"><span class="ev-emoji">🥂</span><span class="ev-day">12<br/>May</span></div>
-        <div class="ev-right"><h3>Reception &amp; Satyanarayan</h3><p class="ev-time">Evening · Amravati</p><p class="ev-place">Nikhil's Home, Rajapeth</p><span class="ev-tag">Ethnic / Formal</span></div>
+      <div class="ev-tl-item" onclick="openEventModal('g_reception')">
+        <div class="ev-tl-date"><span class="ev-tl-day">12</span><span class="ev-tl-mon">May</span></div>
+        <div class="ev-tl-line"><div class="ev-tl-dot" style="background:#E64A19"></div></div>
+        <div class="ev-tl-card">
+          <div class="ev-tl-top"><span class="ev-tl-icon">🥂</span><span class="ev-tl-badge" style="background:rgba(230,74,25,0.15);color:#FFAB91">Amravati</span></div>
+          <h3 class="ev-tl-name">Reception &amp; Satyanarayan</h3>
+          <p class="ev-tl-time">Evening · Nikhil's Home, Rajapeth</p>
+          <p class="ev-tl-dress">👗 Ethnic / Formal Elegant</p>
+          <div class="ev-tl-actions">
+            <span class="ev-tl-days" id="days-g_reception"></span>
+            <button class="ev-tl-cal" onclick="event.stopPropagation();addToCal('g_reception')">+ Calendar</button>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- BRIDE EVENTS -->
-    <div class="ev-cards hidden" id="timeline-bride">
-      <div class="ev-card reveal-child" style="--i:0" onclick="openEventModal('b_mehndi')">
-        <div class="ev-accent" style="background:linear-gradient(180deg,#4CAF50,#2E7D32)"></div>
-        <div class="ev-left"><span class="ev-emoji">🌿</span><span class="ev-day">08<br/>May</span></div>
-        <div class="ev-right"><h3>Mehndi Ceremony</h3><p class="ev-time">4:00 PM onwards</p><p class="ev-place">Sweta Lawn, Nigdi, Pune</p><span class="ev-tag">Yellow / Green</span></div>
+    <!-- BRIDE TIMELINE — completely different events -->
+    <div class="ev-timeline hidden" id="timeline-bride">
+      <div class="ev-tl-item" onclick="openEventModal('b_haldi')">
+        <div class="ev-tl-date"><span class="ev-tl-day">07</span><span class="ev-tl-mon">May</span></div>
+        <div class="ev-tl-line"><div class="ev-tl-dot" style="background:#FFEB3B"></div></div>
+        <div class="ev-tl-card">
+          <div class="ev-tl-top"><span class="ev-tl-icon">🌼</span><span class="ev-tl-badge" style="background:rgba(255,235,59,0.15);color:#FFF176">Pune</span></div>
+          <h3 class="ev-tl-name">Haldi Ceremony</h3>
+          <p class="ev-tl-time">Morning · Sweta Lawn, Nigdi, Pune</p>
+          <p class="ev-tl-dress">👗 Yellow / Floral Traditional</p>
+          <div class="ev-tl-actions">
+            <span class="ev-tl-days" id="days-b_haldi"></span>
+            <button class="ev-tl-cal" onclick="event.stopPropagation();addToCal('b_haldi')">+ Calendar</button>
+          </div>
+        </div>
       </div>
-      <div class="ev-card reveal-child" style="--i:1" onclick="openEventModal('b_haldi')">
-        <div class="ev-accent" style="background:linear-gradient(180deg,#FFEB3B,#F9A825)"></div>
-        <div class="ev-left"><span class="ev-emoji">🌼</span><span class="ev-day">09<br/>May</span></div>
-        <div class="ev-right"><h3>Haldi Ceremony</h3><p class="ev-time">11:00 AM</p><p class="ev-place">Sweta Lawn, Nigdi, Pune</p><span class="ev-tag">Yellow / Floral</span></div>
+      <div class="ev-tl-item" onclick="openEventModal('b_mehndi')">
+        <div class="ev-tl-date"><span class="ev-tl-day">08</span><span class="ev-tl-mon">May</span></div>
+        <div class="ev-tl-line"><div class="ev-tl-dot" style="background:#4CAF50"></div></div>
+        <div class="ev-tl-card">
+          <div class="ev-tl-top"><span class="ev-tl-icon">🌿</span><span class="ev-tl-badge" style="background:rgba(76,175,80,0.15);color:#A5D6A7">Pune</span></div>
+          <h3 class="ev-tl-name">Mehndi Ceremony</h3>
+          <p class="ev-tl-time">4:00 PM onwards · Sweta Lawn, Nigdi</p>
+          <p class="ev-tl-dress">👗 Yellow / Green Traditional</p>
+          <div class="ev-tl-actions">
+            <span class="ev-tl-days" id="days-b_mehndi"></span>
+            <button class="ev-tl-cal" onclick="event.stopPropagation();addToCal('b_mehndi')">+ Calendar</button>
+          </div>
+        </div>
       </div>
-      <div class="ev-card reveal-child" style="--i:2" onclick="openEventModal('b_sangeet')">
-        <div class="ev-accent" style="background:linear-gradient(180deg,#9C27B0,#6A1B9A)"></div>
-        <div class="ev-left"><span class="ev-emoji">🎶</span><span class="ev-day">09<br/>May</span></div>
-        <div class="ev-right"><h3>Sangeet Night</h3><p class="ev-time">7:00 PM onwards</p><p class="ev-place">Sweta Lawn, Nigdi, Pune</p><span class="ev-tag">Cocktail / Festive</span></div>
+      <div class="ev-tl-item" onclick="openEventModal('b_sangeet')">
+        <div class="ev-tl-date"><span class="ev-tl-day">09</span><span class="ev-tl-mon">May</span></div>
+        <div class="ev-tl-line"><div class="ev-tl-dot" style="background:#9C27B0"></div></div>
+        <div class="ev-tl-card">
+          <div class="ev-tl-top"><span class="ev-tl-icon">🎶</span><span class="ev-tl-badge" style="background:rgba(156,39,176,0.15);color:#CE93D8">Pune</span></div>
+          <h3 class="ev-tl-name">Sangeet Night</h3>
+          <p class="ev-tl-time">7:00 PM onwards · Sweta Lawn, Nigdi</p>
+          <p class="ev-tl-dress">👗 Cocktail / Festive Colourful</p>
+          <div class="ev-tl-actions">
+            <span class="ev-tl-days" id="days-b_sangeet"></span>
+            <button class="ev-tl-cal" onclick="event.stopPropagation();addToCal('b_sangeet')">+ Calendar</button>
+          </div>
+        </div>
       </div>
-      <div class="ev-card ev-featured reveal-child" style="--i:3" onclick="openEventModal('b_wedding')">
-        <div class="ev-accent" style="background:linear-gradient(180deg,#C9A84C,#E8C97A)"></div>
-        <div class="ev-left"><span class="ev-emoji">💍</span><span class="ev-day">10<br/>May</span></div>
-        <div class="ev-right"><h3>Wedding Ceremony</h3><p class="ev-time">11:00 AM</p><p class="ev-place">Sweta Lawn, Nigdi, Pune</p><span class="ev-tag">Bridal Lehenga</span></div>
+      <div class="ev-tl-item ev-tl-featured" onclick="openEventModal('b_wedding')">
+        <div class="ev-tl-date ev-tl-date-gold"><span class="ev-tl-day">10</span><span class="ev-tl-mon">May</span></div>
+        <div class="ev-tl-line"><div class="ev-tl-dot ev-tl-dot-gold"></div></div>
+        <div class="ev-tl-card ev-tl-card-gold">
+          <div class="ev-tl-top"><span class="ev-tl-icon">💍</span><span class="ev-tl-badge" style="background:rgba(201,168,76,0.2);color:#E8C97A">The Big Day</span></div>
+          <h3 class="ev-tl-name ev-tl-name-gold">Wedding Ceremony</h3>
+          <p class="ev-tl-time">11:00 AM · Sweta Lawn, Nigdi, Pune</p>
+          <p class="ev-tl-dress">👗 Bridal Lehenga / Traditional</p>
+          <div class="ev-tl-actions">
+            <span class="ev-tl-days" id="days-b_wedding"></span>
+            <button class="ev-tl-cal" onclick="event.stopPropagation();addToCal('b_wedding')">+ Calendar</button>
+          </div>
+        </div>
       </div>
-      <div class="ev-card reveal-child" style="--i:4" onclick="openEventModal('b_vidaai')">
-        <div class="ev-accent" style="background:linear-gradient(180deg,#F48FB1,#C2185B)"></div>
-        <div class="ev-left"><span class="ev-emoji">🌸</span><span class="ev-day">10<br/>May</span></div>
-        <div class="ev-right"><h3>Vidaai</h3><p class="ev-time">2:00 PM</p><p class="ev-place">Sweta Lawn, Nigdi, Pune</p><span class="ev-tag">Bridal Attire</span></div>
+      <div class="ev-tl-item" onclick="openEventModal('b_vidaai')">
+        <div class="ev-tl-date"><span class="ev-tl-day">10</span><span class="ev-tl-mon">May</span></div>
+        <div class="ev-tl-line"><div class="ev-tl-dot" style="background:#F48FB1"></div></div>
+        <div class="ev-tl-card">
+          <div class="ev-tl-top"><span class="ev-tl-icon">🌸</span><span class="ev-tl-badge" style="background:rgba(244,143,177,0.15);color:#F48FB1">Pune</span></div>
+          <h3 class="ev-tl-name">Vidaai</h3>
+          <p class="ev-tl-time">2:00 PM · Sweta Lawn, Nigdi, Pune</p>
+          <p class="ev-tl-dress">👗 Bridal Attire</p>
+          <div class="ev-tl-actions">
+            <span class="ev-tl-days" id="days-b_vidaai"></span>
+            <button class="ev-tl-cal" onclick="event.stopPropagation();addToCal('b_vidaai')">+ Calendar</button>
+          </div>
+        </div>
+      </div>
+      <div class="ev-tl-item" onclick="openEventModal('b_reception')">
+        <div class="ev-tl-date"><span class="ev-tl-day">10</span><span class="ev-tl-mon">May</span></div>
+        <div class="ev-tl-line"><div class="ev-tl-dot" style="background:#E64A19"></div></div>
+        <div class="ev-tl-card">
+          <div class="ev-tl-top"><span class="ev-tl-icon">🥂</span><span class="ev-tl-badge" style="background:rgba(230,74,25,0.15);color:#FFAB91">Pune</span></div>
+          <h3 class="ev-tl-name">Wedding Reception</h3>
+          <p class="ev-tl-time">7:00 PM onwards · Sweta Lawn, Nigdi</p>
+          <p class="ev-tl-dress">👗 Ethnic / Formal Elegant</p>
+          <div class="ev-tl-actions">
+            <span class="ev-tl-days" id="days-b_reception"></span>
+            <button class="ev-tl-cal" onclick="event.stopPropagation();addToCal('b_reception')">+ Calendar</button>
+          </div>
+        </div>
       </div>
     </div>
 

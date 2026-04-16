@@ -185,13 +185,49 @@ document.addEventListener('DOMContentLoaded', function(){
     setTimeout(()=>{
       hideEl.classList.add('hidden'); hideEl.classList.remove('tl-exit');
       showEl.classList.remove('hidden'); showEl.classList.add('tl-enter');
-      requestAnimationFrame(()=>requestAnimationFrame(()=>{
-        showEl.classList.remove('tl-enter');
-      }));
+      requestAnimationFrame(()=>requestAnimationFrame(()=>{ showEl.classList.remove('tl-enter'); }));
     },280);
     if(bg) bg.classList.toggle('active',side==='groom');
     if(bb) bb.classList.toggle('active',side==='bride');
   };
+
+  // ── EVENT DAYS COUNTDOWN ──
+  const EVENT_DATES={
+    g_gondhal:'2026-05-05',g_mehendi:'2026-05-06',g_haldi:'2026-05-07',
+    g_travel:'2026-05-08',g_wedding:'2026-05-10',g_reception:'2026-05-12',
+    b_haldi:'2026-05-07',b_mehndi:'2026-05-08',b_sangeet:'2026-05-09',
+    b_wedding:'2026-05-10',b_vidaai:'2026-05-10',b_reception:'2026-05-10'
+  };
+  function initEventDays(){
+    const now=Date.now();
+    Object.entries(EVENT_DATES).forEach(([key,dateStr])=>{
+      const el_d=el('days-'+key); if(!el_d)return;
+      const diff=new Date(dateStr).getTime()-now;
+      if(diff<=0){ el_d.textContent='Today! 🎉'; }
+      else{
+        const days=Math.ceil(diff/86400000);
+        el_d.textContent=days===1?'Tomorrow!':days+' days away';
+      }
+    });
+  }
+  initEventDays();
+
+  // ── ADD TO CALENDAR ──
+  const CAL_URLS={
+    g_gondhal:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Gondhal+Ceremony&dates=20260505T180000/20260505T220000&location=Rajapeth,+Amravati',
+    g_mehendi:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mehendi+Ceremony&dates=20260506T140000/20260506T200000&location=Rajapeth,+Amravati',
+    g_haldi:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Haldi+%26+Devkundi&dates=20260507T090000/20260507T140000&location=Rajapeth,+Amravati',
+    g_travel:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Travel+to+Pune&dates=20260508T080000/20260508T200000',
+    g_wedding:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Nikhil+%26+Prachi+Wedding&dates=20260510T110000/20260510T180000&location=Sweta+Lawn,+Nigdi,+Pune',
+    g_reception:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Reception+%26+Satyanarayan&dates=20260512T170000/20260512T235900&location=Rajapeth,+Amravati',
+    b_haldi:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Haldi+Ceremony&dates=20260507T090000/20260507T130000&location=Sweta+Lawn,+Nigdi,+Pune',
+    b_mehndi:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mehndi+Ceremony&dates=20260508T160000/20260508T210000&location=Sweta+Lawn,+Nigdi,+Pune',
+    b_sangeet:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sangeet+Night&dates=20260509T190000/20260509T235900&location=Sweta+Lawn,+Nigdi,+Pune',
+    b_wedding:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding+Ceremony&dates=20260510T110000/20260510T140000&location=Sweta+Lawn,+Nigdi,+Pune',
+    b_vidaai:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Vidaai&dates=20260510T140000/20260510T160000&location=Sweta+Lawn,+Nigdi,+Pune',
+    b_reception:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding+Reception&dates=20260510T190000/20260510T235900&location=Sweta+Lawn,+Nigdi,+Pune',
+  };
+  window.addToCal=function(key){ const u=CAL_URLS[key]; if(u) window.open(u,'_blank'); };
 
   // ── EVENT MODAL ──
   const AMRAVATI='Nikhil\'s Home, Rajapeth Chatrapati Sahu Nagar, Near Shitla Mata Mandir, Amravati – 444607';
@@ -212,6 +248,7 @@ document.addEventListener('DOMContentLoaded', function(){
     b_sangeet: {icon:'🎶',title:'Sangeet Night',         date:'9 May 2026', time:'7:00 PM onwards',  venue:PUNE,   dress:'Cocktail / Festive Colourful',mapSrc:PMAP,mapUrl:PURL,calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sangeet+Night&dates=20260509T190000/20260509T235900&location=Sweta+Lawn,+Nigdi,+Pune'},
     b_wedding: {icon:'💍',title:'Wedding Ceremony 💍',   date:'10 May 2026',time:'11:00 AM',         venue:PUNE,   dress:'Bridal Lehenga / Traditional',mapSrc:PMAP,mapUrl:PURL,calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding+Ceremony&dates=20260510T110000/20260510T140000&location=Sweta+Lawn,+Nigdi,+Pune'},
     b_vidaai:  {icon:'🌸',title:'Vidaai',                date:'10 May 2026',time:'2:00 PM',          venue:PUNE,   dress:'Bridal Attire',               mapSrc:PMAP,mapUrl:PURL,calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Vidaai&dates=20260510T140000/20260510T160000&location=Sweta+Lawn,+Nigdi,+Pune'},
+    b_reception:{icon:'🥂',title:'Wedding Reception',    date:'10 May 2026',time:'7:00 PM onwards',  venue:PUNE,   dress:'Ethnic / Formal Elegant',      mapSrc:PMAP,mapUrl:PURL,calUrl:'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding+Reception&dates=20260510T190000/20260510T235900&location=Sweta+Lawn,+Nigdi,+Pune'},
   };
   window.openEventModal = function(key){
     const d=EVDATA[key]; if(!d)return;
