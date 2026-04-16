@@ -7,9 +7,27 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="manifest" href="manifest.json"/>
+<meta name="theme-color" content="#0a0202"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-title" content="N&amp;P Wedding"/>
 <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
+
+<!-- SECURITY LOCK SCREEN -->
+<div id="security-lock" style="display:none">
+  <canvas id="slc"></canvas>
+  <div class="sl-inner">
+    <div class="sl-icon">🔒</div>
+    <h2 class="sl-title">Private Invitation</h2>
+    <p class="sl-msg">This invitation is private.<br/>Please use your personal link.</p>
+    <p class="sl-hint">Contact the couple for your invitation link.</p>
+    <div class="sl-contact">
+      <a href="https://wa.me/919999999999" class="sl-wa">💬 Contact on WhatsApp</a>
+    </div>
+  </div>
+</div>
 
 <!-- ══ STEP 1: LOADER ══ -->
 <div id="loader">
@@ -677,6 +695,49 @@
   <!-- CONFETTI CANVAS -->
   <canvas id="confetti-canvas" style="position:fixed;inset:0;pointer-events:none;z-index:9000;display:none;"></canvas>
 
+  <!-- REMINDER + SAVE THE DATE + PWA SECTION -->
+  <section id="s-extras" class="s extras-s reveal">
+    <div class="sf-l"></div><div class="sf-r"></div>
+    <div class="s-label">Stay Connected</div>
+    <h2 class="s-title">Don't Miss It</h2>
+
+    <!-- REMINDER NOTIFICATIONS -->
+    <div class="reminder-card reveal-child">
+      <div class="reminder-icon">🔔</div>
+      <h3 class="reminder-title">Set a Reminder</h3>
+      <p class="reminder-sub">Get notified before the wedding day</p>
+      <div class="reminder-btns">
+        <button class="reminder-btn" onclick="setReminder(7)">7 Days Before</button>
+        <button class="reminder-btn" onclick="setReminder(5)">5 Days Before</button>
+        <button class="reminder-btn" onclick="setReminder(3)">3 Days Before</button>
+        <button class="reminder-btn reminder-btn-gold" onclick="setReminder(1)">1 Day Before</button>
+      </div>
+      <p class="reminder-status" id="reminder-status"></p>
+    </div>
+
+    <!-- SAVE THE DATE -->
+    <div class="std-card reveal-child">
+      <div class="std-preview" id="std-canvas-wrap">
+        <canvas id="std-canvas" width="400" height="220"></canvas>
+      </div>
+      <h3 class="std-title">Save the Date Card</h3>
+      <p class="std-sub">Download &amp; share on WhatsApp Status / Instagram</p>
+      <div class="std-btns">
+        <button class="btn-p" onclick="downloadSaveDate()">⬇ Download Card</button>
+        <a class="btn-o" id="std-wa-btn" href="#" target="_blank">💬 Share on WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- PWA INSTALL -->
+    <div class="pwa-card reveal-child" id="pwa-card" style="display:none">
+      <div class="pwa-icon">📱</div>
+      <h3 class="pwa-title">Add to Home Screen</h3>
+      <p class="pwa-sub">Keep this invitation on your phone like an app</p>
+      <button class="btn-p" id="pwa-install-btn" onclick="installPWA()">Install App</button>
+    </div>
+
+  </section>
+
   <!-- FOOTER -->
   <footer class="footer reveal">
     <div class="ft-rose-tl"></div><div class="ft-rose-br"></div>
@@ -713,3 +774,5 @@
 <script src="script.js"></script>
 </body>
 </html>
+
+

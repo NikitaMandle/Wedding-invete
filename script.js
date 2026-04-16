@@ -497,7 +497,156 @@ document.addEventListener('DOMContentLoaded', function(){
     (function draw(){ctx.clearRect(0,0,cv.width,cv.height);pieces.forEach(p=>{p.y+=p.vy;p.x+=p.vx;p.rot+=p.rotV;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);ctx.fillStyle=p.c;ctx.fillRect(-p.r/2,-p.r/2,p.r,p.r);ctx.restore();});frame++;if(frame<180)requestAnimationFrame(draw);else cv.style.display='none';})();
   }
 
+  // ── SECURITY — Token-based access control ──
+  // Valid tokens — add/remove as needed. Share links like: ?guest=Rahul&token=np2026
+  const VALID_TOKENS = ['np2026','nikhilprachi','wedding2026','sweta2026','invite2026'];
+  function checkSecurity(){
+    try{
+      const p = new URLSearchParams(window.location.search);
+      const token = p.get('token');
+      // If no token param at all — allow (for localhost/testing)
+      if(!p.has('token')) return true;
+      // If token param exists, validate it
+      return VALID_TOKENS.includes(token);
+    }catch(e){ return true; }
+  }
+  function showSecurityLock(){
+    const lock = el('security-lock');
+    if(lock){
+      lock.style.display='flex';
+      safe(()=>mkCanvas('slc',40,['#C9A84C','#C41E3A']));
+    }
+  }
+
+  // ── REMINDER NOTIFICATIONS ──
+  window.setReminder = async function(daysBefore){
+    const status = el('reminder-status');
+    if(!('Notification' in window)){
+      if(status) status.textContent = '❌ Notifications not supported on this browser';
+      return;
+    }
+    const perm = await Notification.requestPermission();
+    if(perm !== 'granted'){
+      if(status) status.textContent = '❌ Please allow notifications to set reminders';
+      return;
+    }
+    // Calculate reminder time
+    const weddingDate = new Date('2026-05-10T08:00:00+05:30');
+    const reminderDate = new Date(weddingDate.getTime() - daysBefore * 86400000);
+    const now = Date.now();
+    const delay = reminderDate.getTime() - now;
+    if(delay <= 0){
+      if(status) status.textContent = '⚠️ This date has already passed';
+      return;
+    }
+    // Store reminder in localStorage
+    const reminders = JSON.parse(localStorage.getItem('np_reminders')||'[]');
+    reminders.push({daysBefore, reminderDate: reminderDate.toISOString()});
+    localStorage.setItem('np_reminders', JSON.stringify(reminders));
+    // Show immediate confirmation notification
+    new Notification('Reminder Set! 🔔', {
+      body: `We'll remind you ${daysBefore} day${daysBefore>1?'s':''} before Nikhil & Prachi's wedding!`,
+      icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">💍</text></svg>'
+    });
+    if(status) status.textContent = `✅ Reminder set for ${daysBefore} day${daysBefore>1?'s':''} before the wedding!`;
+    // Schedule the actual reminder using setTimeout (works while tab is open)
+    if(delay < 2147483647){ // max setTimeout value
+      setTimeout(()=>{
+        new Notification('Wedding Tomorrow! 💍', {
+          body: `Nikhil & Prachi's wedding is in ${daysBefore} day${daysBefore>1?'s':''}! 10 May 2026, Sweta Lawn, Pune`,
+          icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">💍</text></svg>'
+        });
+      }, delay);
+    }
+  };
+
+  // ── SAVE THE DATE CANVAS ──
+  function drawSaveDate(){
+    const canvas = el('std-canvas'); if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const W=400, H=220;
+    // Background
+    const bg = ctx.createLinearGradient(0,0,W,H);
+    bg.addColorStop(0,'#1a0404'); bg.addColorStop(0.5,'#0e0202'); bg.addColorStop(1,'#1a0404');
+    ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
+    // Gold border
+    ctx.strokeStyle='rgba(201,168,76,0.6)'; ctx.lineWidth=2;
+    ctx.strokeRect(8,8,W-16,H-16);
+    ctx.strokeStyle='rgba(201,168,76,0.2)'; ctx.lineWidth=1;
+    ctx.strokeRect(14,14,W-28,H-28);
+    // Rose decorations
+    ctx.font='28px serif'; ctx.fillText('🌹',12,40); ctx.fillText('🌹',W-42,40);
+    ctx.fillText('🌸',12,H-12); ctx.fillText('🌸',W-42,H-12);
+    // Save the Date text
+    ctx.fillStyle='rgba(201,168,76,0.7)';
+    ctx.font='600 11px Cinzel,serif';
+    ctx.textAlign='center';
+    ctx.fillText('✦  SAVE THE DATE  ✦', W/2, 50);
+    // Names
+    ctx.fillStyle='#ffffff';
+    ctx.font='italic 42px Georgia,serif';
+    ctx.fillText('Nikhil', W/2-60, 105);
+    ctx.fillStyle='#C9A84C';
+    ctx.font='italic 32px Georgia,serif';
+    ctx.fillText('&', W/2, 100);
+    ctx.fillStyle='#ffffff';
+    ctx.font='italic 42px Georgia,serif';
+    ctx.fillText('Prachi', W/2+55, 105);
+    // Divider
+    ctx.strokeStyle='rgba(201,168,76,0.4)'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(80,118); ctx.lineTo(W-80,118); ctx.stroke();
+    // Date
+    ctx.fillStyle='#C9A84C';
+    ctx.font='600 16px Cinzel,serif';
+    ctx.fillText('10 · MAY · 2026', W/2, 142);
+    // Venue
+    ctx.fillStyle='rgba(237,224,204,0.6)';
+    ctx.font='12px Poppins,sans-serif';
+    ctx.fillText('Sweta Lawn, Nigdi, Pune', W/2, 165);
+    // Bottom
+    ctx.fillStyle='rgba(201,168,76,0.4)';
+    ctx.font='10px Poppins,sans-serif';
+    ctx.fillText('Together Forever  💍', W/2, 195);
+    // Update WhatsApp share link
+    const waBtn = el('std-wa-btn');
+    if(waBtn){
+      const msg = encodeURIComponent("Save the Date! 💍\nNikhil & Prachi are getting married!\n📅 10 May 2026\n📍 Sweta Lawn, Nigdi, Pune\n\nOpen invitation → "+window.location.href);
+      waBtn.href = 'https://wa.me/?text='+msg;
+    }
+  }
+  window.downloadSaveDate = function(){
+    const canvas = el('std-canvas'); if(!canvas) return;
+    const link = document.createElement('a');
+    link.download = 'Nikhil-Prachi-SaveTheDate.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  };
+
+  // ── PWA INSTALL ──
+  let pwaPrompt = null;
+  window.addEventListener('beforeinstallprompt', e=>{
+    e.preventDefault(); pwaPrompt=e;
+    const card=el('pwa-card'); if(card) card.style.display='block';
+  });
+  window.installPWA = async function(){
+    if(!pwaPrompt) return;
+    pwaPrompt.prompt();
+    const result = await pwaPrompt.userChoice;
+    if(result.outcome==='accepted'){ const c=el('pwa-card'); if(c) c.style.display='none'; }
+    pwaPrompt=null;
+  };
+
   // ── START ──
-  initLoader();
+  // Register service worker for PWA
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('/sw.js').catch(()=>{});
+  }
+  // Security check first
+  if(!checkSecurity()){
+    showSecurityLock();
+  } else {
+    initLoader();
+    setTimeout(drawSaveDate, 500);
+  }
 
 });

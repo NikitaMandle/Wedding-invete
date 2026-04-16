@@ -728,3 +728,44 @@ button{font-family:'Poppins',sans-serif;cursor:pointer;border:none;outline:none}
   transition:all 0.2s;white-space:nowrap;
 }
 .ev-tl-cal:hover{background:rgba(201,168,76,0.1);border-color:rgba(201,168,76,0.25);color:var(--gold)}
+
+/* SECURITY LOCK SCREEN */
+#security-lock{position:fixed;inset:0;z-index:99999;background:radial-gradient(ellipse at 35% 25%,#220507,#0a0202 55%,#040101);display:flex;align-items:center;justify-content:center;overflow:hidden}
+#slc{position:absolute;inset:0;width:100%;height:100%}
+.sl-inner{position:relative;z-index:2;text-align:center;padding:40px 32px;max-width:320px}
+.sl-icon{font-size:4rem;margin-bottom:16px;animation:lRing 2s ease-in-out infinite}
+.sl-title{font-family:'Great Vibes',cursive;font-size:2.5rem;color:var(--gold);margin-bottom:12px}
+.sl-msg{font-size:0.85rem;color:var(--dim);line-height:1.8;margin-bottom:8px}
+.sl-hint{font-size:0.72rem;color:var(--dim2);margin-bottom:24px}
+.sl-contact{display:flex;justify-content:center}
+.sl-wa{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#075e54,#128c7e);color:#25d366;border:1px solid rgba(37,211,102,0.3);border-radius:50px;padding:12px 24px;font-size:0.8rem;font-weight:500;text-decoration:none;transition:all 0.25s}
+.sl-wa:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,211,102,0.2)}
+
+/* EXTRAS SECTION */
+.extras-s{background:linear-gradient(180deg,#0a0202,#110303);text-align:center}
+
+/* Reminder card */
+.reminder-card{background:rgba(255,255,255,0.025);border:1px solid var(--bdr);border-radius:20px;padding:24px 20px;margin-bottom:16px;position:relative;z-index:1}
+.reminder-icon{font-size:2.5rem;margin-bottom:10px}
+.reminder-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--cream);font-weight:600;margin-bottom:6px}
+.reminder-sub{font-size:0.75rem;color:var(--dim);margin-bottom:18px}
+.reminder-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.reminder-btn{background:rgba(255,255,255,0.04);border:1px solid var(--bdr);border-radius:10px;padding:10px 8px;font-size:0.72rem;color:var(--text);cursor:pointer;transition:all 0.25s;font-family:'Poppins',sans-serif}
+.reminder-btn:hover{background:rgba(107,15,26,0.3);border-color:rgba(201,168,76,0.3);color:var(--gold)}
+.reminder-btn-gold{background:linear-gradient(135deg,var(--maroon),var(--rose))!important;color:var(--gold)!important;border-color:rgba(201,168,76,0.3)!important}
+.reminder-status{font-size:0.72rem;color:rgba(100,220,100,0.8);min-height:20px;font-style:italic}
+
+/* Save the Date card */
+.std-card{background:rgba(255,255,255,0.025);border:1px solid var(--bdr);border-radius:20px;padding:24px 20px;margin-bottom:16px;position:relative;z-index:1}
+.std-preview{border-radius:14px;overflow:hidden;margin-bottom:16px;box-shadow:0 4px 24px rgba(0,0,0,0.5)}
+.std-preview canvas{display:block;width:100%;height:auto}
+.std-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--cream);font-weight:600;margin-bottom:6px}
+.std-sub{font-size:0.75rem;color:var(--dim);margin-bottom:16px}
+.std-btns{display:flex;gap:10px}
+.std-btns .btn-p,.std-btns .btn-o{flex:1;justify-content:center;font-size:0.76rem;min-height:44px}
+
+/* PWA card */
+.pwa-card{background:rgba(255,255,255,0.025);border:1px solid var(--bdr);border-radius:20px;padding:24px 20px;position:relative;z-index:1}
+.pwa-icon{font-size:2.5rem;margin-bottom:10px}
+.pwa-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--cream);font-weight:600;margin-bottom:6px}
+.pwa-sub{font-size:0.75rem;color:var(--dim);margin-bottom:16px}
