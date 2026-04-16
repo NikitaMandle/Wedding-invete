@@ -65,21 +65,6 @@ document.addEventListener('DOMContentLoaded', function(){
     },500);
   }
 
-  // ── LOADER ──
-  function initLoader(){
-    const loader=el('loader');
-    if(!loader){ showPhoto(); return; }
-    safe(()=>mkCanvas('lc',50,['#C9A84C','#C41E3A','#E8C97A','#8B1A2A']));
-    let done=false;
-    function exitNow(){
-      if(done)return; done=true;
-      loader.style.transition='opacity 0.6s'; loader.style.opacity='0';
-      setTimeout(()=>{ loader.style.display='none'; showPhoto(); },650);
-    }
-    setTimeout(exitNow,2500);
-    setTimeout(exitNow,4500);
-  }
-
   // ── MAIN INIT ──
   function initMain(){
     safe(()=>mkCanvas('hc',60,['#C9A84C','#C41E3A','#8B1A2A']));
@@ -149,19 +134,92 @@ document.addEventListener('DOMContentLoaded', function(){
 
   // ── GUEST PERSONALIZATION ──
   // Usage: https://yoursite.com/?guest=Rahul+Sharma
-  (function(){
+  function getGuestName(){
     try{
       const p=new URLSearchParams(window.location.search);
       const raw=p.get('guest');
-      const wt=el('welcomeText');
-      if(wt && raw && raw.trim()){
-        const name=decodeURIComponent(raw.trim()).replace(/\+/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
-        wt.textContent='Welcome '+name+' \uD83C\uDF89';
+      if(raw && raw.trim()){
+        return decodeURIComponent(raw.trim()).replace(/\+/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
       }
     }catch(e){}
-  })();
+    return null;
+  }
 
-  // ── EVENT MODAL ──
+  // ── STEP 1: WELCOME SPLASH ──
+  function initWelcome(){
+    const guestName = getGuestName();
+    const nameEl = el('gw-name');
+    if(nameEl){
+      nameEl.textContent = guestName ? 'Welcome, ' + guestName + ' 🎉' : 'Welcome 🙏';
+    }
+    // Also update hero welcomeText
+    const heroWt = el('welcomeText');
+    if(heroWt && guestName){
+      heroWt.textContent = 'Welcome ' + guestName + ' 🎉';
+    }
+
+    const welcome = el('guest-welcome');
+    if(!welcome){ initLoader(); return; }
+
+    // Particles on welcome screen
+    safe(()=>mkCanvas('gwc',55,['#C9A84C','#C41E3A','#8B1A2A','#E8C97A']));
+
+    // Petals
+    const gwp = el('gwp');
+    if(gwp){
+      const em=['🌹','🌸','🌺','🌷','✿'];
+      for(let i=0;i<14;i++){
+        const p=document.createElement('div'); p.className='ep';
+        p.textContent=em[Math.floor(Math.random()*em.length)];
+        p.style.left=(Math.random()*100)+'%';
+        p.style.fontSize=(Math.random()*.7+.5)+'rem';
+        p.style.animationDuration=(Math.random()*6+5)+'s';
+        p.style.animationDelay=(Math.random()*4)+'s';
+        gwp.appendChild(p);
+      }
+    }
+
+    // Button click → go to loader
+    const btn = el('gw-btn');
+    if(btn) btn.addEventListener('click', function(){
+      welcome.classList.add('gw-out');
+      setTimeout(()=>{
+        welcome.style.display='none';
+        initLoader();
+      }, 850);
+    });
+  }
+
+  // ── STEP 2: LOADER ──
+  function initLoader(){
+    const loader=el('loader');
+    if(!loader){ showPhoto(); return; }
+
+    // Show loader
+    loader.classList.remove('hidden');
+    loader.style.display='flex';
+    loader.style.opacity='0';
+    loader.style.transition='opacity 0.5s';
+    setTimeout(()=>{ loader.style.opacity='1'; }, 50);
+
+    safe(()=>mkCanvas('lc',50,['#C9A84C','#C41E3A','#E8C97A','#8B1A2A']));
+    const circle=el('l-prog-circle'), bar=el('l-bar'), circ=339;
+    let progress=0;
+    const iv=setInterval(()=>{
+      progress+=Math.random()*14+4;
+      if(progress>=100){ progress=100; clearInterval(iv); }
+      if(circle) circle.style.strokeDashoffset=circ-(progress/100)*circ;
+      if(bar) bar.style.width=progress+'%';
+    },100);
+    let done=false;
+    function exitNow(){
+      if(done)return; done=true; clearInterval(iv);
+      loader.style.transition='opacity 0.7s'; loader.style.opacity='0';
+      setTimeout(()=>{ loader.style.display='none'; showPhoto(); },720);
+    }
+    setTimeout(exitNow,2500);
+    setTimeout(exitNow,4500);
+  }
   const AMRAVATI_ADDR='Rajapeth Chatrapati Sahu Nagar, Near Shitla Mata Mandir, Amravati – 444607';
   const AMRAVATI_MAP='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.0!2d77.7523!3d20.9374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd6a9e4b7c3b1a1%3A0xabc!2sRajapeth%2C+Amravati!5e0!3m2!1sen!2sin!4v1680000000000';
   const AMRAVATI_URL='https://maps.google.com/?q=Rajapeth+Chatrapati+Sahu+Nagar+Amravati';
@@ -548,7 +606,7 @@ sunset enjoy करत होतो… पाण्यात खेळत हो
     draw();
   }
 
-  // ── START ──
-  initLoader();
+  // ── START — Welcome first ──
+  initWelcome();
 
 });

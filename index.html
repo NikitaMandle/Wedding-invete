@@ -12,12 +12,33 @@
 <body>
 
 <!-- ══ STEP 1: LOADER ══ -->
-<div id="loader">
+<div id="loader" class="hidden">
   <canvas id="lc"></canvas>
   <div class="l-inner">
     <div class="l-ring"><div class="l-ring-2"></div><span class="l-mono">N<em>&amp;</em>P</span></div>
     <p class="l-text">Loading your invitation</p>
     <div class="l-dots"><span></span><span></span><span></span></div>
+  </div>
+</div>
+
+<!-- ══ GUEST WELCOME SPLASH ══ -->
+<div id="guest-welcome">
+  <canvas id="gwc"></canvas>
+  <div class="gw-petals" id="gwp"></div>
+  <div class="gw-inner">
+    <div class="gw-ring">
+      <span class="gw-np">N <em>&amp;</em> P</span>
+    </div>
+    <p class="gw-namaste">🙏 Namaste</p>
+    <h1 class="gw-name" id="gw-name">Welcome Guest</h1>
+    <div class="gw-divider"><span></span><span class="gw-gem">◆</span><span></span></div>
+    <p class="gw-msg">You are cordially invited to celebrate the wedding of</p>
+    <p class="gw-couple">Nikhil <span>&amp;</span> Prachi</p>
+    <p class="gw-date">10 · 05 · 2026</p>
+    <button class="gw-btn" id="gw-btn">
+      <span>Open Invitation</span>
+      <span class="gw-arrow">→</span>
+    </button>
   </div>
 </div>
 
@@ -636,3 +657,4 @@
 <script src="script.js"></script>
 </body>
 </html>
+
