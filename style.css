@@ -1028,3 +1028,22 @@ button{font-family:'Poppins',sans-serif;cursor:pointer;border:none;outline:none}
   font-weight:700!important;font-size:0.9rem!important;
   animation:calPulse 1.8s ease-in-out infinite!important;
 }
+
+/* ══ FINAL OVERRIDE — Wedding date gold circle ══ */
+.cal-grid s.ev-wedding,
+.cal-grid s.ev.ev-wedding {
+  background: linear-gradient(135deg, #6B0F1A, #8B1A2A) !important;
+  color: #E8C97A !important;
+  border: 2px solid #C9A84C !important;
+  border-radius: 50% !important;
+  font-weight: 800 !important;
+  font-size: 0.88rem !important;
+  box-shadow: 0 0 0 4px rgba(201,168,76,0.2), 0 0 18px rgba(201,168,76,0.4) !important;
+  animation: weddingPulse 1.8s ease-in-out infinite !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+@keyframes weddingPulse {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(201,168,76,0.2), 0 0 18px rgba(201,168,76,0.35); }
+  50%       { box-shadow: 0 0 0 6px rgba(201,168,76,0.35), 0 0 28px rgba(201,168,76,0.55); }
+}
