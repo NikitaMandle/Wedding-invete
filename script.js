@@ -213,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function(){
     window.addEventListener('scroll',()=>{
       safe(()=>el('nav').classList.toggle('solid', window.scrollY>50));
       const fab = el('fab-top-btn');
-      if(fab) fab.classList.toggle('visible', window.scrollY>300);
+      if(fab) fab.style.display = window.scrollY > 300 ? 'flex' : 'none';
     });
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
       a.addEventListener('click', e=>{
@@ -241,15 +241,18 @@ document.addEventListener('DOMContentLoaded', function(){
   const lbBg  = ['#3d0808','#1a0303','#3d2d0d','#0d1a3d','#0d3d0d','#2d0d3d'];
   const lbLbl = ['Pre-Wedding 1','Pre-Wedding 2','Engagement','Pre-Wedding 3','Celebration','Joy'];
   let lbI = 0;
-  function openLb(i){ lbI=i; showLb(); safe(()=>el('lb').classList.remove('hidden')); }
+  function openLb(i){ lbI=i; showLb(); safe(()=>{ el('lb').classList.remove('hidden'); el('lb').style.display='flex'; }); }
   function showLb(){
     const e = el('lb-img'); if(!e) return;
     e.style.cssText = 'background:'+lbBg[lbI]+';display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.45);font-size:.82rem;';
     e.textContent = lbLbl[lbI];
+    const cap = el('lb-caption');
+    if(cap) cap.textContent = lbLbl[lbI];
   }
-  window.closeLb = function(){ safe(()=>el('lb').classList.add('hidden')); };
+  window.closeLb = function(){ const l=el('lb'); if(l){l.classList.add('hidden');l.style.display='none';} };
   window.lbP     = function(){ lbI=(lbI-1+lbBg.length)%lbBg.length; showLb(); };
   window.lbN     = function(){ lbI=(lbI+1)%lbBg.length; showLb(); };
+  window.openLb  = openLb;
 
   // ── RSVP ──
   window.doRSVP = function(e){
@@ -286,6 +289,13 @@ document.addEventListener('DOMContentLoaded', function(){
     if(wrap)   wrap.classList.toggle('playing', mOn);
     if(title)  title.textContent  = mOn ? 'Stop Music'  : 'Play Music';
     if(toggle) toggle.textContent = mOn ? '⏸' : '▶';
+    // Update floating music fab
+    const fabIcon  = el('music-fab-icon');
+    const fabLabel = el('music-fab-label');
+    const fabBtn   = el('music-fab');
+    if(fabIcon)  fabIcon.textContent  = mOn ? '⏸' : '🎵';
+    if(fabLabel) fabLabel.textContent = mOn ? 'Stop Music' : 'Play Music';
+    if(fabBtn)   fabBtn.style.borderColor = mOn ? 'rgba(201,168,76,0.5)' : 'rgba(201,168,76,0.25)';
   }
 
   // ── NAV OPEN/CLOSE ──

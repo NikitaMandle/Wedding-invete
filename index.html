@@ -293,7 +293,7 @@
     </div>
   </section>
 
-  <!-- GALLERY -->
+<!-- GALLERY -->
   <section id="s-gallery" class="s gallery-s reveal">
     <div class="sf-r"></div>
     <div class="s-label">Memories</div>
@@ -304,14 +304,39 @@
       <button class="gt" data-c="ev">Events</button>
     </div>
     <div class="g-grid reveal-child" id="gg">
-      <div class="gi gi-lg" data-c="pre"><div class="gp gp1"><span>Pre-Wedding</span></div></div>
-      <div class="gi" data-c="pre"><div class="gp gp2"><span>Together</span></div></div>
-      <div class="gi" data-c="ev"><div class="gp gp3"><span>Engagement</span></div></div>
-      <div class="gi" data-c="pre"><div class="gp gp4"><span>Moments</span></div></div>
-      <div class="gi" data-c="ev"><div class="gp gp5"><span>Celebration</span></div></div>
-      <div class="gi" data-c="ev"><div class="gp gp6"><span>Joy</span></div></div>
+      <div class="gi gi-lg" data-c="pre" onclick="openLb(0)">
+        <div class="gp gp1">
+          <div class="gp-overlay"><span class="gp-label">Pre-Wedding</span><span class="gp-icon">🔍</span></div>
+        </div>
+      </div>
+      <div class="gi" data-c="pre" onclick="openLb(1)">
+        <div class="gp gp2">
+          <div class="gp-overlay"><span class="gp-label">Together</span><span class="gp-icon">🔍</span></div>
+        </div>
+      </div>
+      <div class="gi" data-c="ev" onclick="openLb(2)">
+        <div class="gp gp3">
+          <div class="gp-overlay"><span class="gp-label">Engagement</span><span class="gp-icon">🔍</span></div>
+        </div>
+      </div>
+      <div class="gi" data-c="pre" onclick="openLb(3)">
+        <div class="gp gp4">
+          <div class="gp-overlay"><span class="gp-label">Moments</span><span class="gp-icon">🔍</span></div>
+        </div>
+      </div>
+      <div class="gi" data-c="ev" onclick="openLb(4)">
+        <div class="gp gp5">
+          <div class="gp-overlay"><span class="gp-label">Celebration</span><span class="gp-icon">🔍</span></div>
+        </div>
+      </div>
+      <div class="gi" data-c="ev" onclick="openLb(5)">
+        <div class="gp gp6">
+          <div class="gp-overlay"><span class="gp-label">Joy</span><span class="gp-icon">🔍</span></div>
+        </div>
+      </div>
     </div>
     <p class="g-note reveal-child">📷 Photos coming soon — stay tuned!</p>
+    <!-- Lightbox -->
     <div id="lb" class="lb hidden">
       <div class="lb-bg" onclick="closeLb()"></div>
       <div class="lb-box">
@@ -319,6 +344,7 @@
         <button class="lb-p" onclick="lbP()">‹</button>
         <div class="lb-img" id="lb-img"></div>
         <button class="lb-n" onclick="lbN()">›</button>
+        <p class="lb-caption" id="lb-caption"></p>
       </div>
     </div>
   </section>
@@ -378,41 +404,19 @@
 
 </main>
 
-<!-- CHATBOT — bottom RIGHT -->
-<div class="bot-wrap" id="bot-wrap">
-  <button class="bot-fab" id="bot-fab" onclick="toggleBot()">
-    <span class="bot-fab-icon">💬</span>
-    <span class="bot-fab-txt">Ask Us</span>
-  </button>
-  <div class="bot-win" id="bot-win">
-    <div class="bot-hdr">
-      <div class="bot-hdr-l">
-        <div class="bot-av">N&amp;P</div>
-        <div><p class="bot-name">Wedding Assistant</p><p class="bot-status">● Online · AI Powered</p></div>
-      </div>
-      <button class="bot-x" onclick="toggleBot()">✕</button>
-    </div>
-    <div class="bot-msgs" id="bot-msgs">
-      <div class="bm bot"><div class="bb">Hi! 👋 I'm your AI wedding assistant for Nikhil &amp; Prachi's wedding. Ask me anything!</div></div>
-    </div>
-    <div class="bot-quick">
-      <button onclick="botQ('What are the wedding events?')">Events</button>
-      <button onclick="botQ('Where is the venue?')">Venue</button>
-      <button onclick="botQ('What is the dress code?')">Dress Code</button>
-      <button onclick="botQ('How do I RSVP?')">RSVP</button>
-    </div>
-    <div class="bot-inp-row">
-      <input id="bot-inp" type="text" placeholder="Ask about the wedding..." onkeydown="if(event.key==='Enter')botSend()"/>
-      <button class="bot-send" onclick="botSend()">➤</button>
-    </div>
-  </div>
-</div>
+<!-- FLOATING ACTIONS -->
+<!-- Scroll to top — fixed position, always works -->
+<button id="fab-top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to Top" style="position:fixed;bottom:24px;right:20px;z-index:999;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#6B0F1A,#8B1A2A);border:1px solid rgba(201,168,76,0.4);color:#C9A84C;font-size:1.3rem;display:none;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(107,15,26,0.6);cursor:pointer;transition:all 0.3s;">↑</button>
 
-<!-- FAB top only on scroll -->
-<button class="fab-top hidden" id="fab-top-btn" onclick="scrollTop()" title="Back to Top">↑</button>
+<!-- Music toggle — bottom left -->
+<button id="music-fab" onclick="toggleMusic()" title="Toggle Music" style="position:fixed;bottom:24px;left:20px;z-index:999;display:flex;align-items:center;gap:8px;background:rgba(10,2,2,0.92);backdrop-filter:blur(12px);border:1px solid rgba(201,168,76,0.25);border-radius:50px;padding:10px 16px;color:#C9A84C;font-size:0.78rem;font-weight:500;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,0.5);transition:all 0.3s;">
+  <span id="music-fab-icon">🎵</span>
+  <span id="music-fab-label">Play Music</span>
+</button>
 
+<!-- Wedding background music — Indian classical/shehnai style -->
 <audio id="aud" loop preload="auto">
-  <source src="https://cdn.pixabay.com/audio/2023/10/09/audio_9488f0a3e5.mp3" type="audio/mpeg"/>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3" type="audio/mpeg"/>
 </audio>
 <script src="script.js"></script>
 </body>
