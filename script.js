@@ -104,22 +104,11 @@ document.addEventListener('DOMContentLoaded', function(){
     const btn = el('pwa-install-btn');
     if(!card || !btn) return;
     card.style.display = 'block';
-
-    const showUnavailableState = () => {
-      const original = btn.textContent;
-      btn.textContent = 'Install not available';
-      btn.disabled = true;
-      setTimeout(()=>{
-        btn.textContent = original;
-        btn.disabled = false;
-      }, 1400);
-    };
+    btn.disabled = true;
+    btn.textContent = 'Install App';
 
     const triggerInstall = async () => {
-      if(!deferredInstallPrompt){
-        showUnavailableState();
-        return;
-      }
+      if(!deferredInstallPrompt) return;
       deferredInstallPrompt.prompt();
       try{ await deferredInstallPrompt.userChoice; }catch(_err){}
       deferredInstallPrompt = null;
@@ -128,12 +117,18 @@ document.addEventListener('DOMContentLoaded', function(){
     window.addEventListener('beforeinstallprompt', (event) => {
       event.preventDefault();
       deferredInstallPrompt = event;
+      btn.disabled = false;
+      btn.classList.add('is-ready');
+      btn.textContent = 'Install App';
+      card.classList.add('is-ready');
     });
 
     window.addEventListener('appinstalled', () => {
       deferredInstallPrompt = null;
       btn.textContent = 'Installed';
       btn.disabled = true;
+      btn.classList.remove('is-ready');
+      card.classList.remove('is-ready');
     });
 
     window.installPWA = triggerInstall;
