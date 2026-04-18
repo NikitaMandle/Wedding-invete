@@ -102,23 +102,17 @@ document.addEventListener('DOMContentLoaded', function(){
 
     const btn = el('add-home-btn');
     if(!btn) return;
-    btn.classList.add('hidden');
-    btn.style.display = 'none';
+    btn.classList.remove('hidden');
+    btn.style.display = 'inline-flex';
 
     if(isStandaloneMode()){
       btn.classList.add('hidden');
       return;
     }
 
-    const showInstallButton = () => {
-      btn.classList.remove('hidden');
-      btn.style.display = 'inline-flex';
-    };
-
     window.addEventListener('beforeinstallprompt', (event) => {
       event.preventDefault();
       deferredInstallPrompt = event;
-      showInstallButton();
     });
 
     window.addEventListener('appinstalled', () => {
