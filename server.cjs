@@ -668,6 +668,9 @@ async function pollDueReminders() {
   }
 }
 
-setInterval(pollDueReminders, 60000);
+if (require.main === module) {
+  setInterval(pollDueReminders, 60000);
+  startServer(PORT, 10);
+}
 
-startServer(PORT, 10);
+module.exports = app;
