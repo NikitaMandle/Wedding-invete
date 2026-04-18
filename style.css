@@ -8,54 +8,6 @@ body{font-family:'Poppins',sans-serif;background:var(--ink);color:var(--text);ov
 a{text-decoration:none;color:inherit}
 button{font-family:'Poppins',sans-serif;cursor:pointer;border:none;outline:none}
 
-/* ── CONTENT PROTECTION ── */
-body.capture-guard-enabled{
-  -webkit-user-select:none;
-  user-select:none;
-  -webkit-touch-callout:none;
-}
-body.capture-guard-enabled img,
-body.capture-guard-enabled video,
-body.capture-guard-enabled canvas{
-  -webkit-user-drag:none;
-  user-drag:none;
-  pointer-events:none;
-}
-body.capture-guard-enabled input,
-body.capture-guard-enabled textarea,
-body.capture-guard-enabled button,
-body.capture-guard-enabled a,
-body.capture-guard-enabled .gallery-gate,
-body.capture-guard-enabled .nav-btn,
-body.capture-guard-enabled .np-close,
-body.capture-guard-enabled .gt,
-body.capture-guard-enabled .lb-btn,
-body.capture-guard-enabled .lb-close,
-body.capture-guard-enabled .btn-p,
-body.capture-guard-enabled .ft-btn,
-body.capture-guard-enabled .quiz-opt{
-  pointer-events:auto;
-}
-body.capture-shield-on::after{
-  content:'CAPTURE PROTECTION ENABLED';
-  position:fixed;
-  inset:0;
-  z-index:9999;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:rgba(8,2,2,0.94);
-  color:var(--gold);
-  font-family:'Cinzel',serif;
-  letter-spacing:3px;
-  font-size:clamp(12px,3vw,20px);
-  text-align:center;
-  padding:20px;
-}
-@media print{
-  html,body{display:none!important}
-}
-
 /* hidden utility — JS overrides with inline style when needed */
 .hidden{display:none}
 #photo-reveal.hidden,#envelope.hidden,#main.hidden{display:none}
