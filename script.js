@@ -1352,32 +1352,83 @@ beach, sunset, travel… सगळं एकदम perfect 🌅✨
 
   // ── START ──
   (function hardenMediaProtection(){
-    const block = (e) => {
-      const target = e.target;
-      if(target && target.closest && target.closest('.gallery-s, .lb, .story-s')){
-        e.preventDefault();
-        e.stopPropagation();
+    document.body.classList.add('capture-guard-enabled');
+
+    const blockEvent = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+    };
+
+    const setShield = (active) => {
+      document.body.classList.toggle('capture-shield-on', Boolean(active));
+    };
+
+    const addWatermark = () => {
+      if(el('capture-watermark')) return;
+      const wm = document.createElement('div');
+      wm.id = 'capture-watermark';
+      wm.className = 'capture-watermark';
+      document.body.appendChild(wm);
+
+      const stamp = () => {
+        const ts = new Date().toLocaleString();
+        wm.textContent = 'PRIVATE INVITATION • NIKHIL & PRACHI • ' + ts;
+      };
+      stamp();
+      setInterval(stamp, 15000);
+    };
+
+    const clearClipboard = async () => {
+      try{
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          await navigator.clipboard.writeText('');
+        }
+      }catch(_err){
+        // Clipboard clear may fail due to browser permissions.
       }
     };
 
-    document.addEventListener('contextmenu', block);
-    document.addEventListener('dragstart', block);
-    document.addEventListener('copy', block);
+    addWatermark();
+
+    document.addEventListener('contextmenu', blockEvent, { capture:true });
+    document.addEventListener('dragstart', blockEvent, { capture:true });
+    document.addEventListener('copy', blockEvent, { capture:true });
+    document.addEventListener('cut', blockEvent, { capture:true });
+    document.addEventListener('selectstart', blockEvent, { capture:true });
+
     document.addEventListener('keydown', (e) => {
       const key = String(e.key || '').toLowerCase();
-      if (key === 'printscreen') {
+      const metaOrCtrl = e.metaKey || e.ctrlKey;
+
+      if(key === 'printscreen'){
+        e.preventDefault();
+        clearClipboard();
+        return;
+      }
+
+      if(metaOrCtrl && ['c','x','s','p','u'].includes(key)){
+        e.preventDefault();
+        return;
+      }
+
+      if(metaOrCtrl && e.shiftKey && ['i','j','c','s','5','3','4'].includes(key)){
+        e.preventDefault();
+        return;
+      }
+
+      if(e.key === 'F12'){
         e.preventDefault();
       }
-      if (e.ctrlKey && ['s','p','u'].includes(key)) {
-        e.preventDefault();
-      }
-      if (e.ctrlKey && e.shiftKey && ['i','j','c'].includes(key)) {
-        e.preventDefault();
-      }
-      if (e.key === 'F12') {
-        e.preventDefault();
-      }
+    }, { capture:true });
+
+    document.addEventListener('visibilitychange', ()=>{
+      setShield(document.hidden);
     });
+
+    window.addEventListener('blur', ()=>setShield(true));
+    window.addEventListener('focus', ()=>setShield(false));
+    window.addEventListener('pagehide', ()=>setShield(true));
+    window.addEventListener('pageshow', ()=>setShield(false));
   })();
 
   initLoader();
