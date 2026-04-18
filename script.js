@@ -83,56 +83,7 @@ document.addEventListener('DOMContentLoaded', function(){
   // ── MAIN INIT ──
   function initMain(){
     safe(()=>mkCanvas('hc',60,['#C9A84C','#C41E3A','#8B1A2A']));
-    initCountdown(); initReveal(); initNav(); initGallery(); initGalleryAccessGate(); initStoryCardsPreview(); initWishes(); initAddToHomeScreen();
-  }
-
-  // ── ADD TO HOME SCREEN ──
-  let deferredInstallPrompt = null;
-  let addHomeInitialized = false;
-
-  function isStandaloneMode(){
-    const displayMode = window.matchMedia && window.matchMedia('(display-mode: standalone)').matches;
-    const iosStandalone = window.navigator && window.navigator.standalone === true;
-    return Boolean(displayMode || iosStandalone);
-  }
-
-  function initAddToHomeScreen(){
-    if(addHomeInitialized) return;
-    addHomeInitialized = true;
-
-    const card = el('pwa-card');
-    const btn = el('pwa-install-btn');
-    if(!card || !btn) return;
-    card.style.display = 'block';
-    btn.disabled = true;
-    btn.textContent = 'Install App';
-
-    const triggerInstall = async () => {
-      if(!deferredInstallPrompt) return;
-      deferredInstallPrompt.prompt();
-      try{ await deferredInstallPrompt.userChoice; }catch(_err){}
-      deferredInstallPrompt = null;
-    };
-
-    window.addEventListener('beforeinstallprompt', (event) => {
-      event.preventDefault();
-      deferredInstallPrompt = event;
-      btn.disabled = false;
-      btn.classList.add('is-ready');
-      btn.textContent = 'Install App';
-      card.classList.add('is-ready');
-    });
-
-    window.addEventListener('appinstalled', () => {
-      deferredInstallPrompt = null;
-      btn.textContent = 'Installed';
-      btn.disabled = true;
-      btn.classList.remove('is-ready');
-      card.classList.remove('is-ready');
-    });
-
-    window.installPWA = triggerInstall;
-    btn.addEventListener('click', triggerInstall);
+    initCountdown(); initReveal(); initNav(); initGallery(); initGalleryAccessGate(); initStoryCardsPreview(); initWishes();
   }
 
   // ── COUNTDOWN ──
