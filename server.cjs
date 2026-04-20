@@ -27,11 +27,11 @@ const GALLERY_ITEMS = [
     lightboxLabel: 'Pre-Wedding 1',
     bg: '#3d0808',
     size: 'lg',
-    tileImage: '/public/gallery/slide-1.png',
+    tileImage: '/public/gallery/slide-1.jpeg',
     slides: [
-      { label: 'Pre-Wedding 1', bg: '#3d0808', imageUrl: '/public/gallery/slide-1.png' },
-      { label: 'Pre-Wedding 1 - Portrait', bg: '#5a0d12', imageUrl: '/public/gallery/slide-2.png' },
-      { label: 'Pre-Wedding 1 - Candid', bg: '#2c0508', imageUrl: '/public/gallery/slide-3.png' }
+      { label: 'Pre-Wedding 1', bg: '#3d0808', imageUrl: '/public/gallery/slide-1.jpeg' },
+      { label: 'Pre-Wedding 1 - Portrait', bg: '#5a0d12', imageUrl: '/public/gallery/slide-2.jpeg' },
+      { label: 'Pre-Wedding 1 - Candid', bg: '#2c0508', imageUrl: '/public/gallery/slide-3.jpeg' }
     ]
   },
   {
@@ -40,11 +40,11 @@ const GALLERY_ITEMS = [
     tileLabel: 'Together',
     lightboxLabel: 'Pre-Wedding 2',
     bg: '#1a0303',
-    tileImage: '/public/gallery/slide-4.png',
+    tileImage: '/public/gallery/slide-4.jpeg',
     slides: [
-      { label: 'Pre-Wedding 2', bg: '#1a0303', imageUrl: '/public/gallery/slide-4.png' },
-      { label: 'Together - Smile', bg: '#2c0606', imageUrl: '/public/gallery/slide-5.png' },
-      { label: 'Together - Walk', bg: '#3f0a0a', imageUrl: '/public/gallery/slide-6.png' }
+      { label: 'Pre-Wedding 2', bg: '#1a0303', imageUrl: '/public/gallery/slide-4.jpeg' },
+      { label: 'Together - Smile', bg: '#2c0606', imageUrl: '/public/gallery/slide-5.jpeg' },
+      // { label: 'Together - Walk', bg: '#3f0a0a', imageUrl: '/public/gallery/slide-6.jpeg' }
     ]
   },
   {
@@ -53,11 +53,11 @@ const GALLERY_ITEMS = [
     tileLabel: 'Engagement',
     lightboxLabel: 'Engagement',
     bg: '#3d2d0d',
-    tileImage: '/public/gallery/slide-7.png',
+    tileImage: '/public/gallery/slide-7.jpeg',
     slides: [
-      { label: 'Engagement Ring', bg: '#3d2d0d', imageUrl: '/public/gallery/slide-7.png' },
-      { label: 'Engagement Stage', bg: '#5d4514', imageUrl: '/public/gallery/slide-8.png' },
-      { label: 'Engagement Family', bg: '#2e220a', imageUrl: '/public/gallery/slide-9.png' }
+      { label: 'Engagement Ring', bg: '#3d2d0d', imageUrl: '/public/gallery/slide-7.jpeg' },
+      { label: 'Engagement Stage', bg: '#5d4514', imageUrl: '/public/gallery/slide-8.jpeg' },
+      { label: 'Engagement Family', bg: '#2e220a', imageUrl: '/public/gallery/slide-9.jpeg' }
     ]
   },
   {
@@ -66,11 +66,11 @@ const GALLERY_ITEMS = [
     tileLabel: 'Moments',
     lightboxLabel: 'Pre-Wedding 3',
     bg: '#0d1a3d',
-    tileImage: '/public/gallery/slide-10.png',
+    tileImage: '/public/gallery/slide-10.jpeg',
     slides: [
-      { label: 'Pre-Wedding 3', bg: '#0d1a3d', imageUrl: '/public/gallery/slide-10.png' },
-      { label: 'Moments - Sunset', bg: '#162a63', imageUrl: '/public/gallery/slide-11.png' },
-      { label: 'Moments - Pose', bg: '#091229', imageUrl: '/public/gallery/slide-12.png' }
+      { label: 'Pre-Wedding 3', bg: '#0d1a3d', imageUrl: '/public/gallery/slide-10.jpeg' },
+      { label: 'Moments - Sunset', bg: '#162a63', imageUrl: '/public/gallery/slide-11.jpeg' },
+      { label: 'Moments - Pose', bg: '#091229', imageUrl: '/public/gallery/slide-12.jpeg' }
     ]
   },
   {
@@ -79,11 +79,12 @@ const GALLERY_ITEMS = [
     tileLabel: 'Celebration',
     lightboxLabel: 'Celebration',
     bg: '#0d3d0d',
-    tileImage: '/public/gallery/slide-13.png',
+    tileImage: '/public/gallery/slide-13.jpeg',
     slides: [
-      { label: 'Celebration Lights', bg: '#0d3d0d', imageUrl: '/public/gallery/slide-13.png' },
-      { label: 'Celebration Dance', bg: '#186418', imageUrl: '/public/gallery/slide-14.png' },
-      { label: 'Celebration Cheers', bg: '#0a2b0a', imageUrl: '/public/gallery/slide-15.png' }
+      { label: 'Celebration Lights', bg: '#0d3d0d', imageUrl: '/public/gallery/slide-13.jpeg' },
+      { label: 'Celebration Dance', bg: '#186418', imageUrl: '/public/gallery/slide-14.jpeg' },
+      { label: 'Celebration Cheers', bg: '#0a2b0a', imageUrl: '/public/gallery/slide-15.jpeg' },
+      { label: 'Celebration Cheers', bg: '#0a2b0a', imageUrl: '/public/gallery/slide-19.jpeg' }
     ]
   },
   {
@@ -92,11 +93,11 @@ const GALLERY_ITEMS = [
     tileLabel: 'Joy',
     lightboxLabel: 'Joy',
     bg: '#2d0d3d',
-    tileImage: '/public/gallery/slide-16.png',
+    tileImage: '/public/gallery/slide-16.jpeg',
     slides: [
-      { label: 'Joyful Moment', bg: '#2d0d3d', imageUrl: '/public/gallery/slide-16.png' },
-      { label: 'Joy - Friends', bg: '#4a1764', imageUrl: '/public/gallery/slide-17.png' },
-      { label: 'Joy - Finale', bg: '#220a2e', imageUrl: '/public/gallery/slide-18.png' }
+      { label: 'Joyful Moment', bg: '#2d0d3d', imageUrl: '/public/gallery/slide-16.jpeg' },
+      { label: 'Joy - Friends', bg: '#4a1764', imageUrl: '/public/gallery/slide-17.jpeg' },
+      { label: 'Joy - Finale', bg: '#220a2e', imageUrl: '/public/gallery/slide-18.jpeg' }
     ]
   }
 ];
