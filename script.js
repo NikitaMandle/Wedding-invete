@@ -6,6 +6,7 @@ function safe(fn){ try{ return fn(); }catch(e){ console.warn(e); } }
 
 document.addEventListener('DOMContentLoaded', function(){
   let deferredInstallPrompt = null;
+  let installRequested = false;
 
   function updateInstallButtonState(state){
     const btn = el('add-home-btn');
@@ -46,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     if(deferredInstallPrompt){
+      installRequested = false;
       deferredInstallPrompt.prompt();
       try{ await deferredInstallPrompt.userChoice; }catch(_err){}
       deferredInstallPrompt = null;
@@ -53,13 +55,22 @@ document.addEventListener('DOMContentLoaded', function(){
       return;
     }
 
+    installRequested = true;
     updateInstallButtonState('unsupported');
   };
 
-  window.addEventListener('beforeinstallprompt', (event)=>{
+  window.addEventListener('beforeinstallprompt', async (event)=>{
     event.preventDefault();
     deferredInstallPrompt = event;
     updateInstallButtonState('ready');
+
+    if(installRequested && deferredInstallPrompt){
+      installRequested = false;
+      deferredInstallPrompt.prompt();
+      try{ await deferredInstallPrompt.userChoice; }catch(_err){}
+      deferredInstallPrompt = null;
+      updateInstallButtonState('loading');
+    }
   });
 
   window.addEventListener('appinstalled', ()=>{
