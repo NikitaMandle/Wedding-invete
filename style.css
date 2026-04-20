@@ -531,36 +531,6 @@ button{font-family:'Poppins',sans-serif;cursor:pointer;border:none;outline:none}
 .ft-rose-br::before{content:'🌹'}
 
 /* INSTALL HELP MODAL */
-.install-help{position:fixed;inset:0;z-index:1100;display:flex;align-items:flex-end;justify-content:center}
-.install-help.hidden{display:none !important}
-.install-help-bg{position:absolute;inset:0;background:rgba(0,0,0,0.78);backdrop-filter:blur(6px)}
-.install-help-card{
-  position:relative;z-index:1;
-  width:min(480px,100vw);
-  max-height:88vh;
-  overflow:auto;
-  background:linear-gradient(180deg,#1c0404,#0d0202);
-  border:1px solid rgba(201,168,76,0.26);
-  border-top:2px solid rgba(201,168,76,0.45);
-  border-radius:24px 24px 0 0;
-  padding:22px 22px 28px;
-  box-shadow:0 -12px 60px rgba(0,0,0,0.55);
-  animation:slideUp 0.35s cubic-bezier(0.4,0,0.2,1);
-}
-.install-help-close{
-  position:absolute;top:14px;right:14px;
-  width:34px;height:34px;border-radius:999px;
-  display:flex;align-items:center;justify-content:center;
-  color:var(--gold);background:rgba(201,168,76,0.08);
-  border:1px solid rgba(201,168,76,0.24);font-size:0.82rem;
-}
-.install-help-label{font-size:0.62rem;letter-spacing:4px;text-transform:uppercase;color:rgba(201,168,76,0.68);margin-bottom:8px}
-.install-help-title{font-family:'Cormorant Garamond',serif;font-size:1.55rem;color:var(--cream);margin-bottom:6px;font-weight:600}
-.install-help-copy{font-size:0.78rem;line-height:1.8;color:var(--dim);margin-bottom:12px}
-.install-help-steps{padding-left:20px;margin:0 0 18px 0;display:flex;flex-direction:column;gap:8px}
-.install-help-steps li{font-size:0.8rem;line-height:1.7;color:var(--text)}
-.install-help-action{width:100%}
-
 /* ── KEYFRAMES ── */
 @keyframes lRing{0%,100%{box-shadow:0 0 20px rgba(201,168,76,0.08)}50%{box-shadow:0 0 55px rgba(201,168,76,0.28)}}
 @keyframes lDot{0%,60%,100%{transform:translateY(0);opacity:0.35}30%{transform:translateY(-5px);opacity:1}}

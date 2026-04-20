@@ -7,7 +7,7 @@ function safe(fn){ try{ return fn(); }catch(e){ console.warn(e); } }
 document.addEventListener('DOMContentLoaded', function(){
   let deferredInstallPrompt = null;
   let installRequested = false;
-  let installHelpTimer = null;
+  let installStateTimer = null;
 
   function updateInstallButtonState(state){
     const btn = el('add-home-btn');
@@ -41,74 +41,6 @@ document.addEventListener('DOMContentLoaded', function(){
     return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
   }
 
-  function getInstallHelpContent(){
-    const ua = (navigator.userAgent || '').toLowerCase();
-    const isAndroid = /android/.test(ua);
-    const isIOS = /iphone|ipad|ipod/.test(ua);
-    const isSafari = /safari/.test(ua) && !/chrome|crios|edg|opr/.test(ua);
-
-    if(isIOS && isSafari){
-      return {
-        title: 'Add On iPhone / iPad',
-        steps: [
-          'Tap the Share button in Safari.',
-          'Scroll and tap Add to Home Screen.',
-          'Tap Add to confirm.'
-        ]
-      };
-    }
-
-    if(isAndroid){
-      return {
-        title: 'Add On Android',
-        steps: [
-          'Tap browser menu (three dots).',
-          'Select Install app or Add to Home screen.',
-          'Tap Install / Add to confirm.'
-        ]
-      };
-    }
-
-    return {
-      title: 'Install This App',
-      steps: [
-        'Use your browser menu to install this app.',
-        'Choose Install app or Add to Home screen.',
-        'Confirm install to create a home shortcut.'
-      ]
-    };
-  }
-
-  function openInstallHelp(){
-    const modal = el('install-help');
-    const title = el('install-help-title');
-    const steps = el('install-help-steps');
-    if(!modal || !title || !steps) return;
-
-    const content = getInstallHelpContent();
-    title.textContent = content.title;
-    steps.innerHTML = '';
-    content.steps.forEach((line)=>{
-      const li = document.createElement('li');
-      li.textContent = line;
-      steps.appendChild(li);
-    });
-
-    modal.classList.remove('hidden');
-    modal.style.display = 'flex';
-    modal.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-  }
-
-  window.closeInstallHelp = function(){
-    const modal = el('install-help');
-    if(!modal) return;
-    modal.classList.add('hidden');
-    modal.style.display = 'none';
-    modal.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-  };
-
   window.addToHome = async function(){
     if(isStandaloneMode()){
       updateInstallButtonState('installed');
@@ -117,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     if(deferredInstallPrompt){
       installRequested = false;
-      if(installHelpTimer){ clearTimeout(installHelpTimer); installHelpTimer = null; }
+      if(installStateTimer){ clearTimeout(installStateTimer); installStateTimer = null; }
       deferredInstallPrompt.prompt();
       try{ await deferredInstallPrompt.userChoice; }catch(_err){}
       deferredInstallPrompt = null;
@@ -127,19 +59,18 @@ document.addEventListener('DOMContentLoaded', function(){
 
     installRequested = true;
     updateInstallButtonState('loading');
-    if(installHelpTimer){ clearTimeout(installHelpTimer); }
-    installHelpTimer = setTimeout(()=>{
+    if(installStateTimer){ clearTimeout(installStateTimer); }
+    installStateTimer = setTimeout(()=>{
       if(!deferredInstallPrompt){
         updateInstallButtonState('unsupported');
-        openInstallHelp();
       }
-    }, 1400);
+    }, 1200);
   };
 
   window.addEventListener('beforeinstallprompt', async (event)=>{
     event.preventDefault();
     deferredInstallPrompt = event;
-    if(installHelpTimer){ clearTimeout(installHelpTimer); installHelpTimer = null; }
+    if(installStateTimer){ clearTimeout(installStateTimer); installStateTimer = null; }
     updateInstallButtonState('ready');
 
     if(installRequested && deferredInstallPrompt){
@@ -153,8 +84,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   window.addEventListener('appinstalled', ()=>{
     deferredInstallPrompt = null;
-    if(installHelpTimer){ clearTimeout(installHelpTimer); installHelpTimer = null; }
-    window.closeInstallHelp();
+    if(installStateTimer){ clearTimeout(installStateTimer); installStateTimer = null; }
     updateInstallButtonState('installed');
   });
 
@@ -235,8 +165,8 @@ document.addEventListener('DOMContentLoaded', function(){
       loader.style.transition='opacity 0.6s'; loader.style.opacity='0';
       setTimeout(()=>{ loader.style.display='none'; showPhoto(); },650);
     }
-    setTimeout(exitNow,2500);
-    setTimeout(exitNow,4500);
+    setTimeout(exitNow,1100);
+    setTimeout(exitNow,2200);
   }
 
   // ── MAIN INIT ──
@@ -291,6 +221,7 @@ document.addEventListener('DOMContentLoaded', function(){
   let lbTileIndex = 0;
   let lbSlideIndex = 0;
   let lbSlides = [];
+  const loadedImageCache = new Set();
 
   function buildImageCandidates(url){
     const raw = String(url || '').trim();
@@ -323,8 +254,15 @@ document.addEventListener('DOMContentLoaded', function(){
     const tryNext = ()=>{
       if(idx >= candidates.length) return;
       const src = candidates[idx++];
+
+      if(loadedImageCache.has(src)){
+        targetEl.style.backgroundImage = 'url("'+src+'")';
+        return;
+      }
+
       const img = new Image();
       img.onload = ()=>{
+        loadedImageCache.add(src);
         targetEl.style.backgroundImage = 'url("'+src+'")';
       };
       img.onerror = tryNext;
@@ -429,6 +367,18 @@ document.addEventListener('DOMContentLoaded', function(){
     const counter = el('lb-counter');
     if(counter){
       counter.textContent = (lbSlideIndex + 1) + ' / ' + lbSlides.length;
+    }
+
+    // Warm up next slide image so navigation feels instant.
+    if(lbSlides.length > 1){
+      const next = lbSlides[(lbSlideIndex + 1) % lbSlides.length] || {};
+      const nextUrl = next.imageUrl || '';
+      buildImageCandidates(nextUrl).forEach((src)=>{
+        if(loadedImageCache.has(src)) return;
+        const img = new Image();
+        img.onload = ()=>loadedImageCache.add(src);
+        img.src = src;
+      });
     }
   }
 
