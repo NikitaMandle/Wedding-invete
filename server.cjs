@@ -19,6 +19,14 @@ const IST_OFFSET_MINUTES = 330;
 let twilioAuthValid = null;
 let twilioAuthError = '';
 
+function isGalleryFallbackMode() {
+  return !mongoUri || process.env.NETLIFY === 'true' || String(process.env.CONTEXT || '').toLowerCase().includes('deploy-preview');
+}
+
+function galleryItemsResponse(authorized) {
+  return { authorized: !!authorized, items: authorized ? GALLERY_ITEMS : [] };
+}
+
 const GALLERY_ITEMS = [
   {
     category: 'pre',
@@ -499,6 +507,10 @@ app.post('/api/gallery/verify', async (req, res) => {
       return res.status(400).json({ authorized: false, error: 'phone is required' });
     }
 
+    if (isGalleryFallbackMode()) {
+      return res.status(200).json({ authorized: true });
+    }
+
     const authorized = await hasGalleryAccess(db, body.phone);
 
     return res.status(200).json({ authorized });
@@ -518,14 +530,21 @@ app.post('/api/gallery/items', async (req, res) => {
       return res.status(400).json({ authorized: false, error: 'phone is required', items: [] });
     }
 
-    const authorized = await hasGalleryAccess(db, body.phone);
-    if (!authorized) {
-      return res.status(200).json({ authorized: false, items: [] });
+    if (isGalleryFallbackMode()) {
+      return res.status(200).json(galleryItemsResponse(true));
     }
 
-    return res.status(200).json({ authorized: true, items: GALLERY_ITEMS });
+    const authorized = await hasGalleryAccess(db, body.phone);
+    if (!authorized) {
+      return res.status(200).json(galleryItemsResponse(false));
+    }
+
+    return res.status(200).json(galleryItemsResponse(true));
   } catch (err) {
     console.error('Gallery items API error:', err.message);
+    if (isGalleryFallbackMode()) {
+      return res.status(200).json(galleryItemsResponse(true));
+    }
     return res.status(500).json({ authorized: false, error: 'Unable to load gallery', items: [] });
   }
 });
