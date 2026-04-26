@@ -482,7 +482,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const urls = ['/api/' + endpoint];
 
     if(isLocalHost){
-      [3000, 3001, 3002, 3003, 3004, 3005].forEach((port)=>{
+      [9000, 3001, 3002, 3003, 3004, 3005].forEach((port)=>{
         const candidate = 'http://localhost:' + port + '/api/' + endpoint;
         if(!urls.includes(candidate)) urls.push(candidate);
       });
